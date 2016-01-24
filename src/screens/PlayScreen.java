@@ -21,14 +21,22 @@ public class PlayScreen implements Screen {
 		screenHeight = 21;
 		createWorld();
 		CreatureFactory creatureFactory = new CreatureFactory(world);
-		player = creatureFactory.newPlayer();
+		createCreatures(creatureFactory);
+		
 	}
-	
+	public void createCreatures(CreatureFactory cf)
+	{
+		player = cf.newPlayer();
+		for(int i =0; i< 30; i++)
+		{
+			cf.newFungus();
+		}
+	}
 	public void displayOutput(AsciiPanel terminal) {
 		int left = getScrollX();
+		
 		int top = getScrollY();
 		displayTiles(terminal, left, top);
-		terminal.write(player.glyph(), player.x - left, player.y - top, player.color());
 	}
 
 	public Screen respondToUserInput(KeyEvent key) {
@@ -57,6 +65,14 @@ public class PlayScreen implements Screen {
 				int wy = y+top;
 				
 				terminal.write(world.glyph(wx,  wy), x, y, world.color(wx,  wy));
+
+			}
+		}
+		for(Creature c: world.creatures())
+		{
+			if((c.x >= left && c.x < left+screenWidth) && (c.y>=top && c.y < top+screenHeight))
+			{
+				terminal.write(c.glyph(), c.x-left, c.y-top, c.color());
 			}
 		}
 	}
@@ -67,7 +83,7 @@ public class PlayScreen implements Screen {
 		return Math.max(0,  Math.min(player.y - screenHeight/2, world.height() - screenHeight));
 	}
 	private void createWorld() {
-		world = new WorldBuilder(180, 64).makeCaves().build();
+		world = new WorldBuilder(90, 32).makeCaves().build();
 		
 	}
 

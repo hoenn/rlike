@@ -17,4 +17,11 @@ public class CreatureFactory
 		new PlayerAi(player);
 		return player;
 	}
+	public Creature newFungus()
+	{
+		Creature fungus = new Creature(world, (char)5, AsciiPanel.magenta);
+		world.addAtEmptyLocation(fungus);
+		new FungusAi(fungus);
+		return fungus;
+	}
 }

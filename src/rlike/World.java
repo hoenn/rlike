@@ -1,11 +1,17 @@
 package rlike;
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.List;
 
 public class World
 {
 	private Tile[][] tiles;
+	
+	private List<Creature> creatures;
+	
 	private int width;
 	private int height;
+	
 	public int width()
 	{
 		return width;
@@ -19,8 +25,21 @@ public class World
 		this.tiles = tiles;
 		this.width = tiles.length;
 		this.height = tiles[0].length;
+		creatures = new ArrayList<Creature>();
 	}
-	//Get tile
+	public List<Creature> creatures()
+	{
+		return creatures;
+	}
+	public Creature creature(int x, int y)
+	{
+		for(Creature c: creatures)
+		{
+			if(c.x == x && c.y ==y)
+				return c;
+		}
+		return null;
+	}
 	public Tile tile(int x, int y)
 	{
 		if(x<0 || x>= width || y<0 ||y>=height)
@@ -34,12 +53,13 @@ public class World
 		
 		do
 		{
-			x = (int) Math.random() * width;
-			y = (int) Math.random() * height;
-		} while(!tile(x,y).isGround());
+			x = (int) (Math.random() * width);
+			y = (int) (Math.random() * height);
+		} while(!tile(x,y).isGround() || creature(x,y) != null);
 		
 		creature.x = x;
 		creature.y = y;
+		creatures.add(creature);
 	}
 	public void dig(int x, int y)
 	{
