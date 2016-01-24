@@ -19,6 +19,7 @@ public class ApplicationMain extends JFrame implements KeyListener{
         add(terminal);
         screen = new StartScreen();
         pack();
+        setTitle("KarinaQuest");
         addKeyListener(this);
         repaint();
     }

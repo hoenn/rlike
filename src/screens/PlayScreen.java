@@ -22,7 +22,7 @@ public class PlayScreen implements Screen {
 		int left = getScrollX();
 		int top = getScrollY();
 		displayTiles(terminal, left, top);
-		terminal.write('X', centerX - left, centerY - top);
+		terminal.write((char)3, centerX - left, centerY - top, AsciiPanel.brightRed);
 	}
 	private void scrollBy(int mx, int my) {
 		centerX = Math.max(0,  Math.min(centerX+mx, world.width()-1));
@@ -64,7 +64,7 @@ public class PlayScreen implements Screen {
 		return Math.max(0,  Math.min(centerY - screenHeight/2, world.height() - screenHeight));
 	}
 	private void createWorld() {
-		world = new WorldBuilder(90, 31).makeCaves().build();
+		world = new WorldBuilder(180, 64).makeCaves().build();
 		
 	}
 
