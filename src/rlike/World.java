@@ -28,6 +28,24 @@ public class World
 		else
 			return tiles[x][y];
 	}
+	public void addAtEmptyLocation(Creature creature)
+	{
+		int x, y;
+		
+		do
+		{
+			x = (int) Math.random() * width;
+			y = (int) Math.random() * height;
+		} while(!tile(x,y).isGround());
+		
+		creature.x = x;
+		creature.y = y;
+	}
+	public void dig(int x, int y)
+	{
+		if(tile(x,y).isDiggable())
+			tiles[x][y] = Tile.FLOOR;
+	}
 	public char glyph(int x, int y)
 	{
 		return tile(x,y).glyph;
