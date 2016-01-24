@@ -21,7 +21,7 @@ public class CreatureFactory
 	{
 		Creature fungus = new Creature(world, (char)5, AsciiPanel.magenta);
 		world.addAtEmptyLocation(fungus);
-		new FungusAi(fungus);
+		new FungusAi(fungus, this);
 		return fungus;
 	}
 }

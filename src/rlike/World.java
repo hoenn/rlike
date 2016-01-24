@@ -40,6 +40,17 @@ public class World
 		}
 		return null;
 	}
+	public void remove(Creature other)
+	{
+		creatures.remove(other);
+	}
+	public void update(){
+		//Create copy of list to avoid exceptions
+	    List<Creature> toUpdate = new ArrayList<Creature>(creatures);
+	    for (Creature creature : toUpdate){
+	        creature.update();
+	    }
+	}
 	public Tile tile(int x, int y)
 	{
 		if(x<0 || x>= width || y<0 ||y>=height)

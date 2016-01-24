@@ -54,7 +54,7 @@ public class PlayScreen implements Screen {
 	        case KeyEvent.VK_B: player.moveBy(-1, 1); break;
 	        case KeyEvent.VK_N: player.moveBy( 1, 1); break;
         }
-    
+		world.update();
         return this;
 	}
 	private void displayTiles(AsciiPanel terminal, int left, int top)
