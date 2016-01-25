@@ -37,6 +37,9 @@ public class PlayScreen implements Screen {
 		
 		int top = getScrollY();
 		displayTiles(terminal, left, top);
+		
+		 String stats = String.format(" %3d/%3d hp", player.hp(), player.maxHp());
+		 terminal.write(stats, 1, 23);
 	}
 
 	public Screen respondToUserInput(KeyEvent key) {

@@ -9,9 +9,30 @@ public class Creature
 	public int x;
 	public int y;
 	
+	
 	private CreatureAi ai;
 	public void setCreatureAi(CreatureAi ai) {
 		this.ai = ai;
+	}
+	
+	private int maxHp;
+	public int maxHp() {
+		return maxHp;
+	}
+	
+	private int hp;
+	public int hp() {
+		return hp;
+	}
+	
+	private int attackValue;
+	public int attackValue() {
+		return attackValue;
+	}
+	
+	private int defenseValue;
+	public int defenseValue() {
+		return defenseValue;
 	}
 	
 	private char glyph;
@@ -36,10 +57,20 @@ public class Creature
 		else
 			attack(other);
 	}
-	public void attack(Creature other)
-	{
-		world.remove(other);
-	}
+	public void attack(Creature other){
+        int amount = Math.max(0, attackValue() - other.defenseValue());
+    
+        amount = (int)(Math.random() * amount) + 1;
+    
+        other.modifyHp(-amount);
+    }
+
+    public void modifyHp(int amount) {
+        hp += amount;
+    
+        if (hp < 1)
+         world.remove(this);
+    }
 	public void update()
 	{
 		ai.onUpdate();
@@ -48,11 +79,15 @@ public class Creature
 	{
 		return world.tile(wx, wy).isGround() && world.creature(wx, wy) == null;
 	}
-	public Creature(World world, char glyph, Color color)
+	public Creature(World world, char glyph, Color color, int maxHp, int aV, int dV)
 	{
 		this.world = world;
 		this.glyph = glyph;
 		this.color = color;
+		this.maxHp = maxHp;
+		this.hp = maxHp;
+		this.attackValue = aV;
+		this.defenseValue = dV;
 	}
 	
 }
