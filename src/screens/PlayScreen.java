@@ -1,6 +1,8 @@
 package screens;
 
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 import asciiPanel.AsciiPanel;
 import rlike.Creature;
@@ -13,6 +15,8 @@ public class PlayScreen implements Screen {
 	
 	private Creature player;
 	
+	private List<String> messages;
+	
 	private int screenWidth;
 	private int screenHeight;
 	
@@ -20,13 +24,14 @@ public class PlayScreen implements Screen {
 		screenWidth = 80;
 		screenHeight = 21;
 		createWorld();
+		messages = new ArrayList<String>();
 		CreatureFactory creatureFactory = new CreatureFactory(world);
 		createCreatures(creatureFactory);
 		
 	}
 	public void createCreatures(CreatureFactory cf)
 	{
-		player = cf.newPlayer();
+		player = cf.newPlayer(messages);
 		for(int i =0; i< 30; i++)
 		{
 			cf.newFungus();
@@ -38,8 +43,10 @@ public class PlayScreen implements Screen {
 		int top = getScrollY();
 		displayTiles(terminal, left, top);
 		
-		 String stats = String.format(" %3d/%3d hp", player.hp(), player.maxHp());
-		 terminal.write(stats, 1, 23);
+		String stats = String.format(" %3d/%3d hp", player.hp(), player.maxHp());
+		terminal.write(stats, 1, 23);
+		 
+		displayMessages(terminal, messages);
 	}
 
 	public Screen respondToUserInput(KeyEvent key) {
@@ -59,6 +66,15 @@ public class PlayScreen implements Screen {
         }
 		world.update();
         return this;
+	}
+	private void displayMessages(AsciiPanel terminal, List<String> messages) 
+	{
+	    int top = screenHeight - messages.size();
+	    for (int i = 0; i < messages.size(); i++){
+	        terminal.writeCenter(messages.get(i), top + i);
+	    }
+	    if(messages.size()>0)
+	    messages.clear();
 	}
 	private void displayTiles(AsciiPanel terminal, int left, int top)
 	{

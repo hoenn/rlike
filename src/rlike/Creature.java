@@ -44,6 +44,11 @@ public class Creature
 	public Color color(){
 		return color;
 	}
+	
+	public void notify(String message, Object ... params)
+	{
+		ai.onNotify(String.format(message,  params));
+	}
 	public void dig(int wx, int wy)
 	{
 		world.dig(wx, wy);
@@ -63,6 +68,9 @@ public class Creature
         amount = (int)(Math.random() * amount) + 1;
     
         other.modifyHp(-amount);
+        System.out.println(amount);
+        notify("You attack the '%s' for %d damage.", other.glyph, amount);
+        other.notify("The '%s' attacks you for %d damage.", glyph, amount);
     }
 
     public void modifyHp(int amount) {

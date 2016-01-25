@@ -1,5 +1,7 @@
 package rlike;
 
+import java.util.List;
+
 import asciiPanel.AsciiPanel;
 
 public class CreatureFactory
@@ -10,11 +12,11 @@ public class CreatureFactory
 	{
 		this.world = world;
 	}
-	public Creature newPlayer()
+	public Creature newPlayer(List<String> messages)
 	{
 		Creature player = new Creature(world, (char)3, AsciiPanel.brightRed, 100, 20, 5);
 		world.addAtEmptyLocation(player);
-		new PlayerAi(player);
+		new PlayerAi(player,  messages);
 		return player;
 	}
 	public Creature newFungus()
