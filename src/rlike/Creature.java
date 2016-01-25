@@ -68,7 +68,6 @@ public class Creature
         amount = (int)(Math.random() * amount) + 1;
     
         other.modifyHp(-amount);
-        System.out.println(amount);
         notify("You attack the '%s' for %d damage.", other.glyph, amount);
         other.notify("The '%s' attacks you for %d damage.", glyph, amount);
     }
@@ -77,7 +76,11 @@ public class Creature
         hp += amount;
     
         if (hp < 1)
-         world.remove(this);
+        {
+        	doAction("die");
+        	world.remove(this);
+        }
+        
     }
 	public void update()
 	{
@@ -86,6 +89,45 @@ public class Creature
 	public boolean canEnter(int wx, int wy) 
 	{
 		return world.tile(wx, wy).isGround() && world.creature(wx, wy) == null;
+	}
+	public void doAction(String message, Object ... params)
+	{
+        doAction(9, message, params);       
+	}
+	public void doAction(int radius, String message, Object ... params)
+	{
+        int r = radius;
+        for (int ox = -r; ox < r+1; ox++){
+        	for (int oy = -r; oy < r+1; oy++)	
+        	{
+	             if (ox*ox + oy*oy > r*r)
+	                 continue;
+	         
+	             Creature other = world.creature(x+ox, y+oy);
+	         
+	             if (other == null)
+	                 continue;
+	         
+	             if (other == this)
+	                 other.notify("You " + message + ".", params);
+	             else
+	                 other.notify(String.format("The '%s' %s.", glyph, makeSecondPerson(message)), params);
+	         }
+        }       
+	}
+	private String makeSecondPerson(String text)
+	{
+	    String[] words = text.split(" ");
+	    words[0] = words[0] + "s";
+	    
+	    StringBuilder builder = new StringBuilder();
+	    for (String word : words)
+	    {
+	        builder.append(" ");
+	        builder.append(word);
+	    }
+	    
+	    return builder.toString().trim();
 	}
 	public Creature(World world, char glyph, Color color, int maxHp, int aV, int dV)
 	{
