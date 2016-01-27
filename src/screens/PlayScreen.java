@@ -8,6 +8,7 @@ import java.util.List;
 import asciiPanel.AsciiPanel;
 import rlike.Creature;
 import rlike.CreatureFactory;
+import rlike.FieldOfView;
 import rlike.World;
 import rlike.WorldBuilder;
 
@@ -19,6 +20,7 @@ public class PlayScreen implements Screen {
 	private int screenHeight;
 	private List<String> messages;
 	private List<String> messageHistory;
+	private FieldOfView fov;
 	
 	public PlayScreen(){
 		screenWidth = 80;
@@ -27,7 +29,7 @@ public class PlayScreen implements Screen {
 		messageHistory = new ArrayList<String>();
 		createWorld();
 		
-		CreatureFactory creatureFactory = new CreatureFactory(world);
+		CreatureFactory creatureFactory = new CreatureFactory(world, fov);
 		createCreatures(creatureFactory);
 	}
 	
@@ -45,6 +47,7 @@ public class PlayScreen implements Screen {
 		world = new WorldBuilder(90, 32, 5)
 					.makeCaves()
 					.build();
+		fov = new FieldOfView(world);
 	}
 	
 	public int getScrollX() { return Math.max(0, Math.min(player.x - screenWidth / 2, world.width() - screenWidth)); }
@@ -85,23 +88,19 @@ public class PlayScreen implements Screen {
 	}
 
 	private void displayTiles(AsciiPanel terminal, int left, int top) {
+	    fov.update(player.x, player.y, player.z, player.visionRadius());
+	    
+	    for (int x = 0; x < screenWidth; x++){
+	        for (int y = 0; y < screenHeight; y++){
+	            int wx = x + left;
+	            int wy = y + top;
 
-	     for (int x = 0; x < screenWidth; x++){
-	         for (int y = 0; y < screenHeight; y++){
-	             int wx = x + left;
-	             int wy = y + top;
-
-	             if (player.canSee(wx, wy, player.z)){
-	                 Creature creature = world.creature(wx, wy, player.z);
-	                 if (creature != null)
-	                     terminal.write(creature.glyph(), creature.x - left, creature.y - top, creature.color());
-	                 else
-	                     terminal.write(world.glyph(wx, wy, player.z), x, y, world.color(wx, wy, player.z));
-	             } else {
-	                 terminal.write(world.glyph(wx, wy, player.z), x, y, Color.darkGray);
-	             }
-	         }
-	     }
+	            if (player.canSee(wx, wy, player.z))
+	                terminal.write(world.glyph(wx, wy, player.z), x, y, world.color(wx, wy, player.z));
+	            else
+	                terminal.write(fov.tile(wx, wy, player.z).glyph(), x, y, Color.darkGray);
+	        }
+	    }
 	}
 	
 	@Override

@@ -10,15 +10,17 @@ import asciiPanel.AsciiPanel;
 
 public class CreatureFactory {
 	private World world;
+	private FieldOfView fov;
 	
-	public CreatureFactory(World world){
+	public CreatureFactory(World world, FieldOfView fov){
 		this.world = world;
+		this.fov = fov;
 	}
 	
 	public Creature newPlayer(List<String> messages){
 		Creature player = new Creature(world, (char)3, AsciiPanel.brightRed, 100, 20, 5, 9);
 		world.addAtEmptyLocation(player, 0);
-		new PlayerAi(player, messages);
+		new PlayerAi(player, messages, fov);
 		return player;
 	}
 	
