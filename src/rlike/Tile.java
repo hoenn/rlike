@@ -8,7 +8,7 @@ import asciiPanel.AsciiPanel;
 
 public enum Tile {
 	FLOOR((char)250, AsciiPanel.yellow),
-	WALL((char)177, AsciiPanel.yellow),
+	WALL((char)177, ExtraColors.darkBrown),
 	BOUNDS('x', AsciiPanel.brightBlack), 
 	STAIRS_DOWN('>', AsciiPanel.white), 
 	STAIRS_UP('<', AsciiPanel.white);
