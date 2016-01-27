@@ -1,18 +1,20 @@
 package rlike;
 
-public class CreatureAi
-{
+public class CreatureAi {
 	protected Creature creature;
 	
-	public CreatureAi(Creature creature)
-	{
+	public CreatureAi(Creature creature){
 		this.creature = creature;
 		this.creature.setCreatureAi(this);
 	}
-	public void onNotify(String msg){}
-	public void onEnter(int x, int y, Tile tile)
-	{
-		
+	
+	public void onEnter(int x, int y, int z, Tile tile){
 	}
-	public void onUpdate(){}
+	
+	public void onUpdate(){
+	}
+	
+	public void onNotify(String message){
+	}
 }
+

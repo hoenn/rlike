@@ -3,29 +3,32 @@ import java.awt.Color;
 
 import asciiPanel.AsciiPanel;
 
-public enum Tile
-{
+import java.awt.Color;
+import asciiPanel.AsciiPanel;
+
+public enum Tile {
 	FLOOR((char)250, AsciiPanel.yellow),
-	WALL((char)177, ExtraColors.darkBrown),
-	BOUNDS('x', AsciiPanel.brightBlack),
-	
-	STAIRS_DOWN('>', AsciiPanel.white),
+	WALL((char)177, AsciiPanel.yellow),
+	BOUNDS('x', AsciiPanel.brightBlack), 
+	STAIRS_DOWN('>', AsciiPanel.white), 
 	STAIRS_UP('<', AsciiPanel.white);
 	
-	public final char glyph;
-	public final Color color;
+	private char glyph;
+	public char glyph() { return glyph; }
 	
-	Tile(char g, Color c)
-	{
-		glyph = g;
-		color = c;
+	private Color color;
+	public Color color() { return color; }
+	
+	Tile(char glyph, Color color){
+		this.glyph = glyph;
+		this.color = color;
 	}
-	public boolean isGround()
-	{
-		return this !=WALL && this!= BOUNDS;
+
+	public boolean isGround() {
+		return this != WALL && this != BOUNDS;
 	}
-	public boolean isDiggable() 
-	{
+
+	public boolean isDiggable() {
 		return this == Tile.WALL;
 	}
 }
