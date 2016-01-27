@@ -1,5 +1,6 @@
 package screens;
 
+import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
@@ -84,18 +85,23 @@ public class PlayScreen implements Screen {
 	}
 
 	private void displayTiles(AsciiPanel terminal, int left, int top) {
-		for (int x = 0; x < screenWidth; x++){
-			for (int y = 0; y < screenHeight; y++){
-				int wx = x + left;
-				int wy = y + top;
 
-				Creature creature = world.creature(wx, wy, player.z);
-				if (creature != null)
-					terminal.write(creature.glyph(), creature.x - left, creature.y - top, creature.color());
-				else
-					terminal.write(world.glyph(wx, wy, player.z), x, y, world.color(wx, wy, player.z));
-			}
-		}
+	     for (int x = 0; x < screenWidth; x++){
+	         for (int y = 0; y < screenHeight; y++){
+	             int wx = x + left;
+	             int wy = y + top;
+
+	             if (player.canSee(wx, wy, player.z)){
+	                 Creature creature = world.creature(wx, wy, player.z);
+	                 if (creature != null)
+	                     terminal.write(creature.glyph(), creature.x - left, creature.y - top, creature.color());
+	                 else
+	                     terminal.write(world.glyph(wx, wy, player.z), x, y, world.color(wx, wy, player.z));
+	             } else {
+	                 terminal.write(world.glyph(wx, wy, player.z), x, y, Color.darkGray);
+	             }
+	         }
+	     }
 	}
 	
 	@Override
