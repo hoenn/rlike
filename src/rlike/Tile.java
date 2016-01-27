@@ -7,7 +7,10 @@ public enum Tile
 {
 	FLOOR((char)250, AsciiPanel.yellow),
 	WALL((char)177, ExtraColors.darkBrown),
-	BOUNDS('x', AsciiPanel.brightBlack);
+	BOUNDS('x', AsciiPanel.brightBlack),
+	
+	STAIRS_DOWN('>', AsciiPanel.white),
+	STAIRS_UP('<', AsciiPanel.white);
 	
 	public final char glyph;
 	public final Color color;
