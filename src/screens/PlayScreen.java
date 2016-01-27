@@ -34,7 +34,7 @@ public class PlayScreen implements Screen {
 		player = creatureFactory.newPlayer(messages);
 		
 		for (int z = 0; z < world.depth(); z++){
-			for (int i = 0; i < 40; i++){
+			for (int i = 0; i < 8; i++){
 				creatureFactory.newFungus(z);
 			}
 		}
@@ -101,19 +101,11 @@ public class PlayScreen implements Screen {
 	@Override
 	public Screen respondToUserInput(KeyEvent key) {
 		switch (key.getKeyCode()){
-			case KeyEvent.VK_ESCAPE:
-			case KeyEvent.VK_ENTER: 
 			case KeyEvent.VK_LEFT: player.moveBy(-1, 0, 0); break;
-			case KeyEvent.VK_RIGHT:
-			case KeyEvent.VK_L: player.moveBy( 1, 0, 0); break;
-			case KeyEvent.VK_UP:
-			case KeyEvent.VK_K: player.moveBy( 0,-1, 0); break;
-			case KeyEvent.VK_DOWN:
-			case KeyEvent.VK_J: player.moveBy( 0, 1, 0); break;
-			case KeyEvent.VK_Y: player.moveBy(-1,-1, 0); break;
-			case KeyEvent.VK_U: player.moveBy( 1,-1, 0); break;
-			case KeyEvent.VK_B: player.moveBy(-1, 1, 0); break;
-			case KeyEvent.VK_N: player.moveBy( 1, 1, 0); break;
+			case KeyEvent.VK_RIGHT: player.moveBy( 1, 0, 0); break;
+			case KeyEvent.VK_UP: player.moveBy( 0,-1, 0); break;
+			case KeyEvent.VK_DOWN: player.moveBy( 0, 1, 0); break;
+
 			case KeyEvent.VK_H: return new HistoryScreen(messageHistory, this);
 		}
 		

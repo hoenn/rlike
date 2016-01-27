@@ -29,7 +29,7 @@ public class HistoryScreen implements Screen
 
 	public Screen respondToUserInput(KeyEvent key)
 	{
-		if(key.getKeyCode() == KeyEvent.VK_BACK_SPACE) return prev;
+		if(key.getKeyCode() == KeyEvent.VK_ESCAPE) return prev;
 		return this;
 	}
 
