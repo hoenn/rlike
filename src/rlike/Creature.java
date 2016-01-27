@@ -51,6 +51,7 @@ public class Creature
 	}
 	public void dig(int wx, int wy)
 	{
+		notify("You dig.");
 		world.dig(wx, wy);
 	}
 	

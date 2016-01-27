@@ -16,6 +16,7 @@ public class PlayScreen implements Screen {
 	private Creature player;
 	
 	private List<String> messages;
+	private List<String> messageHistory;
 	
 	private int screenWidth;
 	private int screenHeight;
@@ -25,6 +26,7 @@ public class PlayScreen implements Screen {
 		screenHeight = 21;
 		createWorld();
 		messages = new ArrayList<String>();
+		messageHistory = new ArrayList<String>();
 		CreatureFactory creatureFactory = new CreatureFactory(world);
 		createCreatures(creatureFactory);
 		
@@ -63,6 +65,7 @@ public class PlayScreen implements Screen {
 	        case KeyEvent.VK_U: player.moveBy( 1,-1); break;
 	        case KeyEvent.VK_B: player.moveBy(-1, 1); break;
 	        case KeyEvent.VK_N: player.moveBy( 1, 1); break;
+	        case KeyEvent.VK_T: return new HistoryScreen(messageHistory, this); 
         }
 		world.update();
         return this;
@@ -74,7 +77,17 @@ public class PlayScreen implements Screen {
 	        terminal.writeCenter(messages.get(i), top + i);
 	    }
 	    if(messages.size()>0)
-	    messages.clear();
+	    {
+	    	for(String s: messages)
+	    	{
+	    		messageHistory.add(0, s);
+	    		if(messageHistory.size()>20)
+	    		{
+	    			messageHistory.remove(messageHistory.size()-1);
+	    		}
+	    	}
+	    	messages.clear();
+	    }
 	}
 	private void displayTiles(AsciiPanel terminal, int left, int top)
 	{
