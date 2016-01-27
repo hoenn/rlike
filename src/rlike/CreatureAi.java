@@ -7,6 +7,7 @@ public class CreatureAi {
 		this.creature = creature;
 		this.creature.setCreatureAi(this);
 	}
+	
 	public boolean canSee(int wx, int wy, int wz) {
         if (creature.z != wz)
             return false;
@@ -24,8 +25,25 @@ public class CreatureAi {
         return true;
     }
 	public void onEnter(int x, int y, int z, Tile tile){
+	    if (tile.isGround()){
+	         creature.x = x;
+	         creature.y = y;
+	         creature.z = z;
+	    } else {
+	         creature.doAction("bump into a wall");
+	    }
 	}
-	
+	public void wander(){
+	    int mx = (int)(Math.random() * 3) - 1;
+	    int my = (int)(Math.random() * 3) - 1;
+	    
+	    Creature other = creature.creature(creature.x + mx, creature.y + my, creature.z);
+	    
+	    if (other != null && other.glyph() == creature.glyph())
+	        return;
+	    else
+	        creature.moveBy(mx, my, 0);
+	}
 	public void onUpdate(){
 	}
 	
