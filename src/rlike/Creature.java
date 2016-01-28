@@ -11,15 +11,6 @@ public class Creature {
 	private int visionRadius;
 	public int visionRadius() { return visionRadius; }
 	
-	public boolean canSee(int wx, int wy, int wz)
-	{
-		return ai.canSee(wx, wy ,wz);
-	}
-	public Tile tile(int wx, int wy, int wz)
-	{
-		return world.tile(wx, wy, wz);
-	}
-	
 	private char glyph;
 	public char glyph() { return glyph; }
 	
@@ -55,7 +46,14 @@ public class Creature {
 		this.defenseValue = defense;
 		this.visionRadius = visionRadius;
 	}
-	
+	public boolean canSee(int wx, int wy, int wz)
+	{
+		return ai.canSee(wx, wy ,wz);
+	}
+	public Tile tile(int wx, int wy, int wz)
+	{
+		return world.tile(wx, wy, wz);
+	}
 	public void moveBy(int mx, int my, int mz){
 		if (mx==0 && my==0 && mz==0)
 		    return;
