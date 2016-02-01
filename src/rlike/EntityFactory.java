@@ -8,11 +8,11 @@ import java.util.List;
 
 import asciiPanel.AsciiPanel;
 
-public class CreatureFactory {
+public class EntityFactory {
 	private World world;
 	private FieldOfView fov;
 	
-	public CreatureFactory(World world, FieldOfView fov){
+	public EntityFactory(World world, FieldOfView fov){
 		this.world = world;
 		this.fov = fov;
 	}
@@ -36,5 +36,10 @@ public class CreatureFactory {
 	    new BatAi(bat);
 	    return bat;
 	}
+	public Item newRock(int depth){
+        Item rock = new Item(',', AsciiPanel.green, "rock");
+        world.addAtEmptyLocation(rock, depth);
+        return rock;
+    }
 
 }

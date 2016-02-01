@@ -1,7 +1,7 @@
 package rlike;
 import java.awt.Color;
 
-public class Creature {
+public class Creature extends Entity{
 	private World world;
 	
 	public int x;
@@ -10,15 +10,7 @@ public class Creature {
 	
 	private int visionRadius;
 	public int visionRadius() { return visionRadius; }
-	
-	private char glyph;
-	public char glyph() { return glyph; }
-	
-	private Color color;
-	public Color color() { return color; }
-	
-	private String name;
-	public String name() { return name; }
+
 
 	private CreatureAi ai;
 	public void setCreatureAi(CreatureAi ai) { this.ai = ai; }
@@ -35,16 +27,43 @@ public class Creature {
 	private int defenseValue;
 	public int defenseValue() { return defenseValue; }
 	
+	private Inventory inventory;
+	public Inventory inventory() { return inventory; }
+	
 	public Creature(World world, String name,  char glyph, Color color, int maxHp, int attack, int defense, int visionRadius){
+		super(glyph, color, name);
 		this.world = world;
-		this.name = name;
-		this.glyph = glyph;
-		this.color = color;
 		this.maxHp = maxHp;
 		this.hp = maxHp;
 		this.attackValue = attack;
 		this.defenseValue = defense;
+		this.inventory = new Inventory(15);
 		this.visionRadius = visionRadius;
+	}
+	public void pickUp() {
+		Item item = world.item(x, y,  z);
+
+		if(item == null) {
+			doAction("grab at ground");
+		}
+		else if(inventory.isFull()) {	
+			doAction("rethink that. Inventory "+inventory.getSize()+"/"+inventory.getSize());
+		}
+		else
+		{
+			world.remove(x, y, z);
+			inventory.add(item);
+			doAction("pickup a %s. Inventory " +inventory.getSize()+"/"+inventory.getItems().length, item.name());
+
+		}
+	}
+	public void drop(Item item){
+	    if (world.addAtEmptySpace(item, x, y, z)){
+	         doAction("drop a " + item.name());
+	         inventory.remove(item);
+	    } else {
+	         notify("There's nowhere to drop the %s.", item.name());
+	    }
 	}
 	public boolean canSee(int wx, int wy, int wz)
 	{

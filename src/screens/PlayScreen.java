@@ -7,7 +7,7 @@ import java.util.List;
 
 import asciiPanel.AsciiPanel;
 import rlike.Creature;
-import rlike.CreatureFactory;
+import rlike.EntityFactory;
 import rlike.FieldOfView;
 import rlike.World;
 import rlike.WorldBuilder;
@@ -15,6 +15,7 @@ import rlike.WorldBuilder;
 
 public class PlayScreen implements Screen {
 	private World world;
+	private Screen subScreen;
 	private Creature player;
 	private int screenWidth;
 	private int screenHeight;
@@ -25,28 +26,34 @@ public class PlayScreen implements Screen {
 	public PlayScreen(){
 		screenWidth = 80;
 		screenHeight = 23;
+		subScreen = null;
 		messages = new ArrayList<String>();
 		messageHistory = new ArrayList<String>();
 		createWorld();
 		
-		CreatureFactory creatureFactory = new CreatureFactory(world, fov);
-		createCreatures(creatureFactory);
+		EntityFactory entityFactory = new EntityFactory(world, fov);
+		createCreatures(entityFactory);
+		createItems(entityFactory);
 	}
 	
-	private void createCreatures(CreatureFactory creatureFactory){
-		player = creatureFactory.newPlayer(messages);
+	private void createCreatures(EntityFactory entityFactory){
+		player = entityFactory.newPlayer(messages);
 		
 		for (int z = 0; z < world.depth(); z++){
 			for (int i = 0; i < 8; i++){
-				creatureFactory.newFungus(z);
+				entityFactory.newFungus(z);
 			}
 			for (int i = 0; i < 20; i++){
-			    creatureFactory.newBat(z);
+			    entityFactory.newBat(z);
 			}
-		}
-		
-
-		
+		}	
+	}
+	private void createItems(EntityFactory factory) {
+	    for (int z = 0; z < world.depth(); z++){
+	        for (int i = 0; i < world.width() * world.height() / 20; i++){
+	            factory.newRock(z);
+	        }
+	    }
 	}
 	
 	private void createWorld(){
@@ -71,6 +78,9 @@ public class PlayScreen implements Screen {
 
 		String stats = String.format(" %3d/%3d hp", player.hp(), player.maxHp());
 		terminal.write(stats, 1, 23);
+		
+		if (subScreen != null)
+		    subScreen.displayOutput(terminal);
 	}
 
 	private void displayMessages(AsciiPanel terminal, List<String> messages) 
@@ -111,21 +121,28 @@ public class PlayScreen implements Screen {
 	
 	@Override
 	public Screen respondToUserInput(KeyEvent key) {
-		switch (key.getKeyCode()){
+		if (subScreen != null) {
+	         subScreen = subScreen.respondToUserInput(key);
+	     }
+		else
+			switch (key.getKeyCode()){
 			case KeyEvent.VK_LEFT: player.moveBy(-1, 0, 0); break;
 			case KeyEvent.VK_RIGHT: player.moveBy( 1, 0, 0); break;
 			case KeyEvent.VK_UP: player.moveBy( 0,-1, 0); break;
 			case KeyEvent.VK_DOWN: player.moveBy( 0, 1, 0); break;
 
 			case KeyEvent.VK_H: return new HistoryScreen(messageHistory, this);
+			case KeyEvent.VK_D: subScreen = new DropScreen(player); break;
 		}
 		
 		switch (key.getKeyChar()){
-			case '<': player.moveBy( 0, 0, -1); break;
-			case '>': player.moveBy( 0, 0, 1); break;
+	        case 'g': player.pickUp(); break;
+	        case '<': player.moveBy( 0, 0, -1); break;
+	        case '>': player.moveBy( 0, 0, 1); break;
+        
 		}
-		
-		world.update();
+		if(subScreen == null)
+			world.update();
 		if (player.hp() < 1)
 		    return new StartScreen();
 		return this;
