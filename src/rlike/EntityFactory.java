@@ -41,5 +41,10 @@ public class EntityFactory {
         world.addAtEmptyLocation(rock, depth);
         return rock;
     }
+	public Item newVictoryItem(int depth){
+        Item item = new Item((char)1, AsciiPanel.brightWhite, "Volume 1");
+        world.addAtEmptyLocation(item, depth);
+        return item;
+    }
 
 }

@@ -9,6 +9,8 @@ import asciiPanel.AsciiPanel;
 import rlike.Creature;
 import rlike.EntityFactory;
 import rlike.FieldOfView;
+import rlike.Item;
+import rlike.Tile;
 import rlike.World;
 import rlike.WorldBuilder;
 
@@ -54,6 +56,8 @@ public class PlayScreen implements Screen {
 	            factory.newRock(z);
 	        }
 	    }
+	    factory.newVictoryItem(world.depth() - 1);
+
 	}
 	
 	private void createWorld(){
@@ -137,7 +141,12 @@ public class PlayScreen implements Screen {
 		
 		switch (key.getKeyChar()){
 	        case 'g': player.pickUp(); break;
-	        case '<': player.moveBy( 0, 0, -1); break;
+	        case '<':
+	            if (userIsTryingToExit())
+	             return userExits();
+	            else
+	             player.moveBy( 0, 0, -1); 
+	            break;
 	        case '>': player.moveBy( 0, 0, 1); break;
         
 		}
@@ -146,6 +155,17 @@ public class PlayScreen implements Screen {
 		if (player.hp() < 1)
 		    return new StartScreen();
 		return this;
+	}
+	private boolean userIsTryingToExit(){
+	    return player.z == 0 && world.tile(player.x, player.y, player.z) == Tile.STAIRS_UP;
+	}
+
+	private Screen userExits(){
+	    for (Item item : player.inventory().getItems()){
+	        if (item != null && item.name().equals("Volume 1"))
+	            return new WinScreen();
+	    }
+	    return new LoseScreen();
 	}
 }
 
