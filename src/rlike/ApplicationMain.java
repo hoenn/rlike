@@ -9,6 +9,7 @@ import screens.StartScreen;
 
 public class ApplicationMain extends JFrame implements KeyListener{
     private static final long serialVersionUID = 1060623638149583738L;
+    private static final String TITLE = "KarinaQuest";
     private Screen screen;
 
     private AsciiPanel terminal;
@@ -19,7 +20,7 @@ public class ApplicationMain extends JFrame implements KeyListener{
         add(terminal);
         screen = new StartScreen();
         pack();
-        setTitle("KarinaQuest");
+        setTitle(TITLE);
         addKeyListener(this);
         repaint();
     }
