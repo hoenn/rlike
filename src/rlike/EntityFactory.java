@@ -36,6 +36,12 @@ public class EntityFactory {
 	    new BatAi(bat);
 	    return bat;
 	}
+	public Creature newDeath() {
+		Creature death = new Creature(world, "Dark Lord", (char)234, ExtraColors.mediumOrchid, 100000, 10000, 10000, 10000);
+		world.addAtEmptyLocation(death,  0);
+		new DeathAi(death);
+		return death;
+	}
 	public Item newRock(int depth){
         Item rock = new Item(',', AsciiPanel.green, "rock");
         world.addAtEmptyLocation(rock, depth);

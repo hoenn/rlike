@@ -49,6 +49,7 @@ public class PlayScreen implements Screen {
 			    entityFactory.newBat(z);
 			}
 		}	
+		entityFactory.newDeath();
 	}
 	private void createItems(EntityFactory factory) {
 	    for (int z = 0; z < world.depth(); z++){
