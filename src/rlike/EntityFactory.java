@@ -43,7 +43,7 @@ public class EntityFactory {
 		return death;
 	}
 	public Item newRock(int depth){
-        Item rock = new Item(',', ExtraColors.olive, "rock");
+        Item rock = new Item(',', ExtraColors.slateGray, "rock");
         world.addAtEmptyLocation(rock, depth);
         rock.modifyFoodValue(-10);
         return rock;
@@ -51,7 +51,7 @@ public class EntityFactory {
 	public Item newHerb(int depth) {
 		Item herb = new Item('f', AsciiPanel.green, "herb");
 		world.addAtEmptyLocation(herb, depth);
-		herb.modifyFoodValue(5);
+		herb.modifyFoodValue(10);
 		return herb;
 	}
 	public Item newVictoryItem(int depth){

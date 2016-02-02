@@ -56,8 +56,8 @@ public class PlayScreen implements Screen {
 	        for (int i = 0; i < world.width() * world.height() / 40; i++){
 	            if(i%2==0)
 	            	factory.newHerb(z);
-	            else if(i%2==4)
-	            	factory.newRock(z);
+	            
+	            factory.newRock(z);
 	        }
 	    }
 	    
@@ -66,7 +66,7 @@ public class PlayScreen implements Screen {
 	}
 	
 	private void createWorld(){
-		world = new WorldBuilder(90, 32, 5)
+		world = new WorldBuilder(90, 60, 5)
 					.makeCaves()
 					.build();
 		fov = new FieldOfView(world);
