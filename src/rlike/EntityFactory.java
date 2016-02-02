@@ -43,10 +43,17 @@ public class EntityFactory {
 		return death;
 	}
 	public Item newRock(int depth){
-        Item rock = new Item(',', AsciiPanel.green, "rock");
+        Item rock = new Item(',', ExtraColors.olive, "rock");
         world.addAtEmptyLocation(rock, depth);
+        rock.modifyFoodValue(-10);
         return rock;
     }
+	public Item newHerb(int depth) {
+		Item herb = new Item('f', AsciiPanel.green, "herb");
+		world.addAtEmptyLocation(herb, depth);
+		herb.modifyFoodValue(5);
+		return herb;
+	}
 	public Item newVictoryItem(int depth){
         Item item = new Item((char)1, AsciiPanel.brightWhite, "Volume 1");
         world.addAtEmptyLocation(item, depth);

@@ -53,10 +53,14 @@ public class PlayScreen implements Screen {
 	}
 	private void createItems(EntityFactory factory) {
 	    for (int z = 0; z < world.depth(); z++){
-	        for (int i = 0; i < world.width() * world.height() / 20; i++){
-	            factory.newRock(z);
+	        for (int i = 0; i < world.width() * world.height() / 40; i++){
+	            if(i%2==0)
+	            	factory.newHerb(z);
+	            else if(i%2==4)
+	            	factory.newRock(z);
 	        }
 	    }
+	    
 	    factory.newVictoryItem(world.depth() - 1);
 
 	}

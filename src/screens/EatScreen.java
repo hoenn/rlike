@@ -19,6 +19,7 @@ public class EatScreen extends InventoryBasedScreen {
 
     protected Screen use(Item item) {
         player.eat(item);
+        player.notify("You eat the "+item.name());
         return null;
     }
 }	
