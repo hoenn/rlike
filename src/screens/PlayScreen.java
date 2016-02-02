@@ -81,7 +81,7 @@ public class PlayScreen implements Screen {
 		displayMessages(terminal, messages);
 		
 
-		String stats = String.format(" %3d/%3d hp", player.hp(), player.maxHp());
+		String stats = String.format(" %3d/%3d hp - food %3d/%3d", player.hp(), player.maxHp(), player.food(), player.maxFood());
 		terminal.write(stats, 1, 23);
 		
 		if (subScreen != null)
@@ -138,6 +138,7 @@ public class PlayScreen implements Screen {
 
 			case KeyEvent.VK_H: return new HistoryScreen(messageHistory, this);
 			case KeyEvent.VK_D: subScreen = new DropScreen(player); break;
+			case KeyEvent.VK_E: subScreen = new EatScreen(player); break;
 		}
 		
 		switch (key.getKeyChar()){
@@ -154,7 +155,7 @@ public class PlayScreen implements Screen {
 		if(subScreen == null)
 			world.update();
 		if (player.hp() < 1)
-		    return new StartScreen();
+		    return new LoseScreen();
 		return this;
 	}
 	private boolean userIsTryingToExit(){

@@ -21,6 +21,14 @@ public class Creature extends Entity{
 	private int hp;
 	public int hp() { return hp; }
 	
+	private int maxFood;
+	public int maxFood() { return maxFood; }
+	
+	private int food;
+	public int food() { return food; }
+	
+
+	
 	private int attackValue;
 	public int attackValue() { return attackValue; }
 
@@ -29,6 +37,11 @@ public class Creature extends Entity{
 	
 	private Inventory inventory;
 	public Inventory inventory() { return inventory; }
+	
+	//Hack
+	public boolean isPlayer() {
+		return glyph == (char)3;
+	}
 	
 	public Creature(World world, String name,  char glyph, Color color, int maxHp, int attack, int defense, int visionRadius){
 		super(glyph, color, name);
@@ -39,6 +52,8 @@ public class Creature extends Entity{
 		this.defenseValue = defense;
 		this.inventory = new Inventory(15);
 		this.visionRadius = visionRadius;
+		this.maxFood = 1000;
+		this.food = 750;
 	}
 	public void pickUp() {
 		Item item = world.item(x, y,  z);
@@ -57,6 +72,7 @@ public class Creature extends Entity{
 
 		}
 	}
+	
 	public void drop(Item item){
 	    if (world.addAtEmptySpace(item, x, y, z)){
 	         doAction("drop a " + item.name());
@@ -97,9 +113,17 @@ public class Creature extends Entity{
 		Creature other = world.creature(x+mx, y+my, z+mz);
 		
 		if (other == null)
+		{
 			ai.onEnter(x+mx, y+my, z+mz, tile);
+			modifyFood(-1);
+		}
 		else
+		{
 			attack(other);
+			modifyFood(-10);
+		}
+		
+		
 	}
 	public Creature creature(int wx, int wy, int wz) {
 	    return world.creature(wx, wy, wz);
@@ -119,13 +143,35 @@ public class Creature extends Entity{
 		
 		if (hp < 1) {
 			doAction("die");
+			leaveCorpse();
 			world.remove(this);
 		}
 	}
-	
+	private void leaveCorpse() {
+		Item corpse = new Item('%', color, name+ " corpse");
+		corpse.modifyFoodValue(maxHp*2);
+		world.addAtEmptySpace(corpse, x, y, z);
+	}
+	public void modifyFood(int amt) {
+		food += amt;
+		if(food>maxFood) {
+			maxFood = maxFood+food/2;
+			food = maxFood;
+			notify("You've stretched your stomach It hurts so good");
+			modifyHp(-3);
+		}
+		else if(food<1 && isPlayer()) {
+			modifyHp(-100);
+		}
+	}
+	public void eat(Item item) {
+		modifyFood(item.foodValue());
+		inventory.remove(item);
+	}
 	public void dig(int wx, int wy, int wz) {
 		world.dig(wx, wy, wz);
 		doAction("dig");		
+		modifyFood(-20);
 	}
 	
 	public void update(){
