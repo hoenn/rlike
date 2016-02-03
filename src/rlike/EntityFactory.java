@@ -54,6 +54,12 @@ public class EntityFactory {
 		herb.modifyFoodValue(10);
 		return herb;
 	}
+	public Item newShortbread(int depth) {
+		Item sbread= new Item('=', AsciiPanel.white, "shortbread");
+		world.addAtEmptyLocation(sbread, depth);
+		sbread.modifyFoodValue(100);
+		return sbread;
+	}
 	public Item newVictoryItem(int depth){
         Item item = new Item((char)1, AsciiPanel.brightWhite, "Volume 1");
         world.addAtEmptyLocation(item, depth);
