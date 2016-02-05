@@ -60,7 +60,7 @@ public class EntityFactory {
 		sbread.modifyFoodValue(100);
 		return sbread;
 	}
-	public Item newVictoryItem(int depth){
+	public Item newVolumeOne(int depth){
         Item item = new Item((char)1, AsciiPanel.brightWhite, "Volume 1");
         world.addAtEmptyLocation(item, depth);
         return item;

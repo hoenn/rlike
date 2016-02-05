@@ -61,7 +61,7 @@ public class PlayScreen implements Screen {
 	        }
 	    }
 	    
-	    factory.newVictoryItem(world.depth() - 1);
+	    factory.newVolumeOne(world.depth() - 1);
 
 	}
 	
