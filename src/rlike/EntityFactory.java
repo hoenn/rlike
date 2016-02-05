@@ -61,7 +61,7 @@ public class EntityFactory {
 		return staff;
 	}
 	public Item newEnchantedSword(int depth) {
-		Item enchSword = new Item('!', AsciiPanel.brightRed, "'espada encantada'");
+		Item enchSword = new Item('!', AsciiPanel.brightRed, "enchanted sword");
 		world.addAtEmptyLocation(enchSword, depth);
 		enchSword.modifyAttackValue((int)(Math.random()*10)+10);
 		enchSword.modifyDefenseValue((int)(Math.random()*10));
