@@ -52,16 +52,22 @@ public class PlayScreen implements Screen {
 		entityFactory.newDeath();
 	}
 	private void createItems(EntityFactory factory) {
-	    for (int z = 0; z < world.depth(); z++){
+		int depth = world.depth();
+	    for (int z = 0; z < depth; z++){
 	        for (int i = 0; i < world.width() * world.height() / 40; i++){
 	            if(i%2==0)
 	            	factory.newHerb(z);
 	            
 	            factory.newRock(z);
 	        }
+	        factory.newRandomWeapon(z);
+	        factory.newRandomArmor(z);
 	    }
 	    
-	    factory.newVolumeOne(world.depth() - 1);
+	    factory.newEnchantedSword((int)(Math.random()*depth-1));
+	    factory.newVolumeOne(depth - 3);
+	    factory.newVolumeTwo(depth - 2);
+	    factory.newVolumeThree(depth-1);
 
 	}
 	
@@ -143,6 +149,7 @@ public class PlayScreen implements Screen {
 			case KeyEvent.VK_H: return new HistoryScreen(messageHistory, this);
 			case KeyEvent.VK_D: subScreen = new DropScreen(player); break;
 			case KeyEvent.VK_E: subScreen = new EatScreen(player); break;
+			case KeyEvent.VK_W: subScreen = new EquipScreen(player); break;
 		}
 		
 		switch (key.getKeyChar()){

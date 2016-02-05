@@ -30,13 +30,26 @@ public class Creature extends Entity{
 
 	
 	private int attackValue;
-	public int attackValue() { return attackValue; }
-
-	private int defenseValue;
-	public int defenseValue() { return defenseValue; }
+	public int attackValue() {
+	    return attackValue
+	     + (weapon == null ? 0 : weapon.attackValue())
+	     + (armor == null ? 0 : armor.attackValue());
+	  }
 	
+	private int defenseValue;
+	public int defenseValue() {
+		    return defenseValue
+		     + (weapon == null ? 0 : weapon.defenseValue())
+		     + (armor == null ? 0 : armor.defenseValue());
+		  }	
 	private Inventory inventory;
 	public Inventory inventory() { return inventory; }
+	
+	private Item weapon;
+	public Item weapon() { return weapon; }
+
+	private Item armor;
+	public Item armor() { return armor; }
 	
 	//Hack
 	public boolean isPlayer() {
@@ -77,6 +90,7 @@ public class Creature extends Entity{
 	    if (world.addAtEmptySpace(item, x, y, z)){
 	         doAction("drop a " + item.name());
 	         inventory.remove(item);
+	         unequip(item);
 	    } else {
 	         notify("There's nowhere to drop the %s.", item.name());
 	    }
@@ -115,7 +129,8 @@ public class Creature extends Entity{
 		if (other == null)
 		{
 			ai.onEnter(x+mx, y+my, z+mz, tile);
-			modifyFood(-1);
+			if (Math.random() < .3) 
+				modifyFood(-1);
 		}
 		else
 		{
@@ -131,7 +146,7 @@ public class Creature extends Entity{
 	public void attack(Creature other){
 		int amount = Math.max(0, attackValue() - other.defenseValue());
 		
-		amount = (int)(Math.random() * amount) + 1;
+		amount = (int)(Math.random() * amount) + amount/4;
 		
 		doAction("attack the '%s' for %d damage", other.name, amount);
 		
@@ -158,15 +173,17 @@ public class Creature extends Entity{
 			maxFood = maxFood+food/2;
 			food = maxFood;
 			notify("You've stretched your stomach It hurts so good");
-			modifyHp(-3);
+			modifyHp(-15);
 		}
 		else if(food<1 && isPlayer()) {
 			modifyHp(-100);
 		}
 	}
 	public void eat(Item item) {
+		
 		modifyFood(item.foodValue());
 		inventory.remove(item);
+		unequip(item);
 	}
 	public void dig(int wx, int wy, int wz) {
 		world.dig(wx, wy, wz);
@@ -174,6 +191,41 @@ public class Creature extends Entity{
 		modifyFood(-20);
 	}
 	
+	public void unequip(Item item){
+	      if (item == null)
+	         return;
+	  
+	      if (item == armor){
+	          doAction("remove a " + item.name());
+	          armor = null;
+	      } else if (item == weapon) {
+	          doAction("put away a " + item.name());
+	          weapon = null;
+	      }
+	  }
+	public void equip(Item item){
+	      if (item.attackValue() == 0 && item.defenseValue() == 0)
+	          return;
+	      //Handle unequip something equipped
+	      if(weapon!=null && item.attackValue() == weapon.attackValue() && item.defenseValue()==weapon.defenseValue()) {
+	    	  unequip(weapon);
+	    	  return;
+	      }
+	      if(armor!=null && item.defenseValue()==armor.defenseValue()) {
+	    	  unequip(armor);
+	    	  return;
+	      }
+	  
+	      if (item.attackValue() >= item.defenseValue()){
+	          unequip(weapon);
+	          doAction("wield a " + item.name());
+	          weapon = item;
+	      } else {
+	          unequip(armor);
+	          doAction("put on a " + item.name());
+	          armor = item;
+	      }
+	  }
 	public void update(){
 		ai.onUpdate();
 	}

@@ -7,8 +7,8 @@ import java.awt.Color;
 import asciiPanel.AsciiPanel;
 
 public enum Tile {
-	FLOOR((char)250, AsciiPanel.yellow),
-	WALL((char)177, ExtraColors.darkBrown),
+	FLOOR((char)250, ExtraColors.mediumOrchid),
+	WALL((char)177, ExtraColors.mediumPurple),
 	BOUNDS('x', AsciiPanel.brightBlack), 
 	
 	STAIRS_DOWN('>', AsciiPanel.white), 
