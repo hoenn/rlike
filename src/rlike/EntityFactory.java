@@ -74,7 +74,7 @@ public class EntityFactory {
 		return enchSword;
 	}
 	public Item newEnchantedArmor(int depth) {
-		Item enchArmor = new Item('{', AsciiPanel.blue, "enchanted armor");
+		Item enchArmor = new Item('{', AsciiPanel.brightBlue, "enchanted armor");
 		world.addAtEmptyLocation(enchArmor, depth);
 		enchArmor.modifyDefenseValue((int)(Math.random()*25));
 		return enchArmor;

@@ -38,18 +38,18 @@ public class PlayScreen implements Screen {
 		createItems(entityFactory);
 	}
 	
-	private void createCreatures(EntityFactory entityFactory){
-		player = entityFactory.newPlayer(messages);
+	private void createCreatures(EntityFactory factory){
+		player = factory.newPlayer(messages);
 		
 		for (int z = 0; z < world.depth(); z++){
 			for (int i = 0; i < 8; i++){
-				entityFactory.newFungus(z);
+				factory.newFungus(z);
 			}
 			for (int i = 0; i < 20; i++){
-			    entityFactory.newBat(z);
+			    factory.newBat(z);			    
 			}
 		}	
-		entityFactory.newDeath();
+		factory.newDeath();
 	}
 	private void createItems(EntityFactory factory) {
 		int depth = world.depth();
@@ -62,9 +62,11 @@ public class PlayScreen implements Screen {
 	        }
 	        factory.newRandomWeapon(z);
 	        factory.newRandomArmor(z);
+	        
 	    }
 	    
 	    factory.newEnchantedSword((int)(Math.random()*depth-1));
+	    factory.newEnchantedArmor((int)(Math.random()*depth-1));
 	    factory.newVolumeOne(depth - 3);
 	    factory.newVolumeTwo(depth - 2);
 	    factory.newVolumeThree(depth-1);
