@@ -157,7 +157,7 @@ public class PlayScreen implements Screen {
 			case KeyEvent.VK_E: subScreen = new EatScreen(player); break;
 			case KeyEvent.VK_W: subScreen = new EquipScreen(player); break;
 		}
-		
+		//Special handling for keys that don't have static KeyEvents
 		switch (key.getKeyChar()){
 	        case 'g': player.pickUp(); break;
 	        case '<':
@@ -172,7 +172,7 @@ public class PlayScreen implements Screen {
 		if(subScreen == null && !safeReturn){
 			world.update();
 		}
-		else if(subScreen == null) {
+		else if(safeReturn) {
 			safeReturn = false;
 		}
 		
