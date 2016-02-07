@@ -72,7 +72,7 @@ public class PlayScreen implements Screen {
 	}
 	
 	private void createWorld(){
-		world = new WorldBuilder(90, 60, 5)
+		world = new WorldBuilder(100, 100, 5)
 					.makeCaves()
 					.build();
 		fov = new FieldOfView(world);

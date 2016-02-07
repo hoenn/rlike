@@ -1,6 +1,8 @@
 package rlike;
 import java.awt.Color;
 
+import asciiPanel.AsciiPanel;
+
 public class Creature extends Entity{
 	private World world;
 	
@@ -129,7 +131,7 @@ public class Creature extends Entity{
 		if (other == null)
 		{
 			ai.onEnter(x+mx, y+my, z+mz, tile);
-			if (Math.random() < .3) 
+			if (Math.random() < .1) 
 				modifyFood(-1);
 		}
 		else
@@ -188,7 +190,13 @@ public class Creature extends Entity{
 	public void dig(int wx, int wy, int wz) {
 		world.dig(wx, wy, wz);
 		doAction("dig");		
-		modifyFood(-20);
+		//If no shovel
+		if(!inventory.hasItem("shovel"))
+			modifyFood(-20);
+		else
+			if (Math.random() < .4) 
+				modifyFood(-1);
+			
 	}
 	
 	public void unequip(Item item){
@@ -196,10 +204,10 @@ public class Creature extends Entity{
 	         return;
 	  
 	      if (item == armor){
-	          doAction("remove a " + item.name());
+	          doAction("remove the " + item.name());
 	          armor = null;
 	      } else if (item == weapon) {
-	          doAction("put away a " + item.name());
+	          doAction("put away the " + item.name());
 	          weapon = null;
 	      }
 	  }
@@ -218,11 +226,11 @@ public class Creature extends Entity{
 	  
 	      if (item.attackValue() >= item.defenseValue()){
 	          unequip(weapon);
-	          doAction("wield a " + item.name());
+	          doAction("wield the " + item.name());
 	          weapon = item;
 	      } else {
 	          unequip(armor);
-	          doAction("put on a " + item.name());
+	          doAction("put on the " + item.name());
 	          armor = item;
 	      }
 	  }

@@ -2,7 +2,7 @@ package rlike;
 
 public class FungusAi extends CreatureAi {
 	private EntityFactory factory;
-	private int spreadcount;
+	private boolean hasSpread;
 	
 	public FungusAi(Creature creature, EntityFactory factory) {
 		super(creature);
@@ -10,7 +10,7 @@ public class FungusAi extends CreatureAi {
 	}
 
 	public void onUpdate(){
-		if (spreadcount < 3 && Math.random() < 0.01)
+		if (!hasSpread  && Math.random() < 0.005)
 			spread();
 	}
 	
@@ -27,6 +27,6 @@ public class FungusAi extends CreatureAi {
 		child.x = x;
 		child.y = y;
 		child.z = creature.z;
-		spreadcount++;
+		hasSpread = true;
 	}
 }

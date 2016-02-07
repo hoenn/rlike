@@ -37,6 +37,16 @@ public class Inventory {
 			}
 		}
 	}
+	public boolean hasItem(String itemName) {
+		boolean hasItem = false;
+		int i =0;
+		while(i<items.length && !hasItem) {
+			if(items[i]!=null)
+				hasItem = items[i].name.equals(itemName);
+			i++;
+		}
+		return hasItem;
+	}
 	public boolean isFull() {
 		return size == items.length;
 	}

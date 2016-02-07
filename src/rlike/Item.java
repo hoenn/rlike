@@ -20,4 +20,6 @@ public class Item extends Entity{
 	{
 		super(glyph, color, name);
 	}
+
+	
 }

@@ -47,6 +47,12 @@ public class EntityFactory {
 	}
 	
 	//Armor and Weapons
+	public Item newKnife(int depth) {
+		Item knife = new Item('!', AsciiPanel.white, "knife");
+		world.addAtEmptyLocation(knife, depth);
+		knife.modifyAttackValue(3);
+		return knife;
+	}
 	public Item newShortsword(int depth) {
 		Item shortSword = new Item('!', ExtraColors.slateGray, "shortsword");
 		world.addAtEmptyLocation(shortSword, depth);
@@ -67,10 +73,22 @@ public class EntityFactory {
 		enchSword.modifyDefenseValue((int)(Math.random()*10));
 		return enchSword;
 	}
+	public Item newEnchantedArmor(int depth) {
+		Item enchArmor = new Item('{', AsciiPanel.blue, "enchanted armor");
+		world.addAtEmptyLocation(enchArmor, depth);
+		enchArmor.modifyDefenseValue((int)(Math.random()*25));
+		return enchArmor;
+	}
+	public Item newClothArmor(int depth) {
+		Item clothArmor = new Item('{', AsciiPanel.white, "cloth armor");
+		world.addAtEmptyLocation(clothArmor, depth);
+		clothArmor.modifyDefenseValue(3);
+		return clothArmor;
+	}
 	public Item newLeatherArmor(int depth) {
 		Item leatherArmor = new Item('{', ExtraColors.olive, "light armor");
 		world.addAtEmptyLocation(leatherArmor,  depth);
-		leatherArmor.modifyDefenseValue(5);
+		leatherArmor.modifyDefenseValue(8);
 		return leatherArmor;
 	}
 	public Item newHeavyArmor(int depth) {
@@ -80,18 +98,21 @@ public class EntityFactory {
 		return heavyArmor;
 	}
 	public Item newRandomWeapon(int depth) {
-		int i = (int)(Math.random()*2);
+		int i = (int)(Math.random()*4);
 		switch(i) {
 			case 0: return newShortsword(depth);
 			case 1: return newStaff(depth);
+			case 2: return newKnife(depth);
+			case 3: return newShovel(depth);
 		}
 		return null;
 	}
 	public Item newRandomArmor(int depth) {
-		int i = (int)(Math.random()*2);
+		int i = (int)(Math.random()*3);
 		switch(i) {
 			case 0: return newLeatherArmor(depth);
 			case 1: return newHeavyArmor(depth);
+			case 2: return newClothArmor(depth);
 		}
 		return null;
 	}
@@ -118,6 +139,12 @@ public class EntityFactory {
 	}
 	
 	//Key Items
+	public Item newShovel(int depth) {
+		Item shovel = new Item('1', AsciiPanel.brightYellow, "shovel");
+		world.addAtEmptyLocation(shovel, depth);
+		shovel.modifyAttackValue(5);
+		return shovel;
+	}
 	public Item newVolumeOne(int depth){
         Item item = new Item((char)240, AsciiPanel.brightWhite, "mysterious book: Volume 1");
         world.addAtEmptyLocation(item, depth);
