@@ -77,13 +77,13 @@ public class Creature extends Entity{
 			doAction("grab at ground");
 		}
 		else if(inventory.isFull()) {	
-			doAction("rethink that. Inventory "+inventory.getSize()+"/"+inventory.getSize());
+			doAction("rethink that. No room in your pack");
 		}
 		else
 		{
 			world.remove(x, y, z);
 			inventory.add(item);
-			doAction("pickup a %s. Inventory " +inventory.getSize()+"/"+inventory.getItems().length, item.name());
+			doAction("pickup a %s", item.name());
 
 		}
 	}

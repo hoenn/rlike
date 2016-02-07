@@ -24,6 +24,7 @@ public class PlayScreen implements Screen {
 	private List<String> messages;
 	private List<String> messageHistory;
 	private FieldOfView fov;
+	public static boolean safeReturn = true;
 	
 	public PlayScreen(){
 		screenWidth = 80;
@@ -93,7 +94,9 @@ public class PlayScreen implements Screen {
 		displayMessages(terminal, messages);
 		
 
-		String stats = String.format(" %3d/%3d hp - food %3d/%3d", player.hp(), player.maxHp(), player.food(), player.maxFood());
+		String stats = String.format("hp %3d/%3d - food %3d/%3d - inventory%2d/%2d", player.hp(), player.maxHp(), 
+										player.food(), player.maxFood(), 
+										player.inventory().getSize(),player.inventory().getItems().length);
 		terminal.write(stats, 1, 23);
 		
 		if (subScreen != null)
@@ -139,8 +142,9 @@ public class PlayScreen implements Screen {
 	@Override
 	public Screen respondToUserInput(KeyEvent key) {
 		if (subScreen != null) {
+			 
 	         subScreen = subScreen.respondToUserInput(key);
-	     }
+	    }
 		else
 			switch (key.getKeyCode()){
 			case KeyEvent.VK_LEFT: player.moveBy(-1, 0, 0); break;
@@ -165,8 +169,13 @@ public class PlayScreen implements Screen {
 	        case '>': player.moveBy( 0, 0, 1); break;
         
 		}
-		if(subScreen == null)
+		if(subScreen == null && !safeReturn){
 			world.update();
+		}
+		else if(subScreen == null) {
+			safeReturn = false;
+		}
+		
 		if (player.hp() < 1)
 		    return new LoseScreen();
 		return this;

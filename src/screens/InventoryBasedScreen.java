@@ -66,8 +66,10 @@ public abstract class InventoryBasedScreen implements Screen {
              && items[letters.indexOf(c)] != null
              && isAcceptable(items[letters.indexOf(c)]))
             return use(items[letters.indexOf(c)]);
-        else if (key.getKeyCode() == KeyEvent.VK_ESCAPE)
-            return null;
+        else if (key.getKeyCode() == KeyEvent.VK_ESCAPE) {
+        	PlayScreen.safeReturn = true;
+        	return null;
+        }       
         else
             return this;
     }
