@@ -24,6 +24,7 @@ public class PlayScreen implements Screen {
 	private List<String> messages;
 	private List<String> messageHistory;
 	private FieldOfView fov;
+	private boolean noInput;
 	public static boolean safeReturn = true;
 	
 	public PlayScreen(){
@@ -53,9 +54,15 @@ public class PlayScreen implements Screen {
 				}
 			}
 			for (int i = 0; i < 20; i++){
-			    factory.newBat(z);			    
+			    factory.newBat(z);
 			}
-		}	
+		}
+		factory.newGoblin(world.depth()-3);
+		factory.newGoblin(world.depth()-2);
+		factory.newGoblin(world.depth()-2);
+		factory.newGoblin(world.depth()-1);
+		factory.newGoblin(world.depth()-1);
+		factory.newGoblin(world.depth()-1);
 		factory.newDeath();
 	}
 	private void createItems(EntityFactory factory) {
@@ -81,7 +88,7 @@ public class PlayScreen implements Screen {
 	}
 	
 	private void createWorld(){
-		world = new WorldBuilder(100, 100, 5)
+		world = new WorldBuilder(120, 100, 5)
 					.makeCaves()
 					.build();
 		fov = new FieldOfView(world);
@@ -175,15 +182,20 @@ public class PlayScreen implements Screen {
 	        case '>': player.moveBy( 0, 0, 1); break;
         
 		}
-		if(subScreen == null && !safeReturn){
-			world.update();
+		//Pressing shift alone won't skip turn
+		if(key.getKeyCode() != KeyEvent.VK_SHIFT)
+		{
+			if(subScreen == null && !safeReturn){
+				world.update();
+			}
+			else if(safeReturn) {
+				safeReturn = false;
+			}
+			
+			if (player.hp() < 1)
+			    return new LoseScreen();
+			
 		}
-		else if(safeReturn) {
-			safeReturn = false;
-		}
-		
-		if (player.hp() < 1)
-		    return new LoseScreen();
 		return this;
 	}
 	private boolean userIsTryingToExit(){

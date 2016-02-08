@@ -43,6 +43,12 @@ public class EntityFactory {
 		new GiantRatAi(rat, player);
 		return rat;
 	}
+	public Creature newGoblin(int depth) {
+		Creature goblin = new Creature(world, "goblin", 'g', AsciiPanel.cyan, 10, 25, 5, 15);
+		world.addAtEmptyLocation(goblin, depth);
+		new GoblinAi(goblin);
+		return goblin;
+	}
 	
 	//Key Creature
 	public Creature newDeath() {

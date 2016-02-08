@@ -1,7 +1,7 @@
 package rlike;
 import java.awt.Color;
-
-import asciiPanel.AsciiPanel;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Creature extends Entity{
 	private World world;
@@ -144,6 +144,20 @@ public class Creature extends Entity{
 	}
 	public Creature creature(int wx, int wy, int wz) {
 	    return world.creature(wx, wy, wz);
+	}
+	public List<Creature> nearbyCreaturesInSight() {
+		
+		List<Creature> nearby = new ArrayList<Creature>();
+
+		for(int i = x - visionRadius; i < x + visionRadius; i ++) {
+			for(int j = y - visionRadius; j < y + visionRadius; j++) {
+				if(canSee(i,j,z) && creature(i,j,z)!= null && !creature(i,j,z).equals(this)) {
+					nearby.add(creature(i,j,z));
+				}
+			}
+		}
+		return nearby;
+		
 	}
 	public void attack(Creature other){
 		int amount = Math.max(0, attackValue() - other.defenseValue());

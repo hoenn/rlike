@@ -31,9 +31,7 @@ public class CreatureAi {
 	         creature.x = x;
 	         creature.y = y;
 	         creature.z = z;
-	    } else {
-	         creature.doAction("bump into a wall");
-	    }
+	    } 
 	}
 	public void wander(){
 	    int mx = (int)(Math.random() * 3) - 1;
@@ -48,12 +46,20 @@ public class CreatureAi {
 	}
 	public void chase(Creature target){
 	      List<Point> points = new Path(creature, target.x, target.y).points();
-	  
+	      
+
 	      int mx = points.get(0).x - creature.x;
 	      int my = points.get(0).y - creature.y;
 	  
 	      creature.moveBy(mx, my, 0);
-	  }
+	}
+	public Creature seekTarget() {
+		List<Creature> nearby = creature.nearbyCreaturesInSight();
+		if(nearby.size()>0)
+			return nearby.get((int)(Math.random()*nearby.size()));
+		else 
+			return null;
+	}
 	public void onUpdate(){
 	}
 	
