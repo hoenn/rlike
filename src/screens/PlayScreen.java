@@ -46,6 +46,12 @@ public class PlayScreen implements Screen {
 			for (int i = 0; i < 8; i++){
 				factory.newFungus(z);
 			}
+			
+			if(z>0) {
+				for(int i =0; i<5; i++) {
+					factory.newGiantRat(z, player);
+				}
+			}
 			for (int i = 0; i < 20; i++){
 			    factory.newBat(z);			    
 			}
