@@ -22,11 +22,17 @@ public class DeathAi extends CreatureAi {
 	}
 
 	public void onUpdate(){
+		//Should do other things
+		//Upgrade monsters in the dungeon?
+		//Hurt the player
+		//Teleport the player
+		//Give player shady items
 		if(Math.random() < .03) {
 			sendPlayerRandomMessage();
 		}
 	}
 	public void sendPlayerRandomMessage() {
+		player.notify("Death whispers to you");
 		player.notify((char)234+" "+messages[(int)(Math.random()*messages.length)]+" "+(char)234);
 	}
 	
