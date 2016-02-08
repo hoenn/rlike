@@ -24,7 +24,6 @@ public class PlayScreen implements Screen {
 	private List<String> messages;
 	private List<String> messageHistory;
 	private FieldOfView fov;
-	private boolean noInput;
 	public static boolean safeReturn = true;
 	
 	public PlayScreen(){
