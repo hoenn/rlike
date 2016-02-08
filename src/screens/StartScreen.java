@@ -11,22 +11,31 @@ public class StartScreen implements Screen {
 
 	@Override
 	public void displayOutput(AsciiPanel terminal) {
+		//Fill background
+		for(int r = 0; r<24; r++) {
+			for(int c =0; c<80; c++) {
+				terminal.write('.', c, r, AsciiPanel.brightBlack);
+			}
+		}
+		
+		
 		//Draw Image
 		ArrayList<String> img = new ArrayList<String>();
-
-		img.add("            @@@@@");
-		img.add("          @@@   @@@");
-		img.add("         @@       @@");
-		img.add("        @@@       @@@");
-		img.add("       @@@         @@@");
-		img.add("      @@@           @@@");
-		img.add("      @@@           @@@");
-		img.add("       @@@         @@@");
-		img.add("       @@@         @@@");
-		img.add("        @@         @@");
-		img.add("   @@    @         @    @@");
-		img.add("   @@  @@@@       @@@@  @@");
-		img.add("    @@@@@@@       @@@@@@@");
+		img.add("            ...            ");
+		img.add("          .@@@@@.          ");
+		img.add("        .@@@   @@@.        ");
+		img.add("      .@@@       @@@.      ");
+		img.add("     .@@@@       @@@@.     ");
+		img.add("    .@@@@         @@@@.    ");
+		img.add("    .@@@           @@@.    ");
+		img.add("    .@@@           @@@.    ");
+		img.add("     .@@@         @@@.     ");
+		img.add("     .@@@         @@@.     ");
+		img.add("  ..  .@@         @@.  ..  ");
+		img.add(" .@@. ..@         @.. .@@. ");
+		img.add(" .@@..@@@@       @@@@..@@. ");
+		img.add("  .@@@@@@@       @@@@@@@.  ");
+		img.add("   ......         ......   ");
 		randomizeCharacter(img);
 		int xx = (int)(Math.random()*50)+1;
 		int yy = (int) (Math.random()*10);
