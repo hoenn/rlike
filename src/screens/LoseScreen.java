@@ -15,8 +15,7 @@ public class LoseScreen implements Screen{
 	}
 	@Override
 	public Screen respondToUserInput(KeyEvent key) {
-		// TODO Auto-generated method stub
-		return null;
+		return this;
 	}
 	
 

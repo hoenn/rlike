@@ -17,16 +17,17 @@ public class HistoryScreen implements Screen {
 	}
 
 	public void displayOutput(AsciiPanel terminal) {
-		terminal.writeCenter("NEWEST", 0, AsciiPanel.brightYellow);
+		terminal.write("HISTORY", 0,0, AsciiPanel.brightGreen);
+		terminal.writeCenter("NEWEST", 23, AsciiPanel.brightYellow);
 
 		for (int i = 0; i < messages.size(); i++) {
 			//If the message is from Death
 	    	if(messages.get(i).contains(""+(char)234)) {
-		        terminal.writeCenter(messages.get(i), i+1, ExtraColors.mediumOrchid);
+		        terminal.writeCenter(messages.get(i), 21-i, ExtraColors.mediumOrchid);
 
 	    	}
 	    	else
-	    		terminal.writeCenter(messages.get(i), i + 1);
+	    		terminal.writeCenter(messages.get(i), 21-i);
 		}
 	}
 

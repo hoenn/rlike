@@ -32,7 +32,7 @@ public class EntityFactory {
 		return fungus;
 	}
 	public Creature newBat(int depth){
-	    Creature bat = new Creature(world, "bat", 'b', AsciiPanel.yellow, 15, 5, 0, 5);
+	    Creature bat = new Creature(world, "bat", 'b', AsciiPanel.yellow, 15, 15, 0, 5);
 	    world.addAtEmptyLocation(bat, depth);
 	    new BatAi(bat);
 	    return bat;
@@ -51,10 +51,10 @@ public class EntityFactory {
 	}
 	
 	//Key Creature
-	public Creature newDeath(Creature player) {
+	public Creature newDeath(Creature player, int depth) {
 		Creature death = new Creature(world, "Dark Lord", (char)234, ExtraColors.mediumOrchid, 100000, 10000, 10000, 10000);
 		world.addAtEmptyLocation(death,  0);
-		new DeathAi(death, player);
+		new DeathAi(death, player, depth);
 		return death;
 	}
 	

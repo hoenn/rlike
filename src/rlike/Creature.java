@@ -142,6 +142,26 @@ public class Creature extends Entity{
 		
 		
 	}
+	public void teleport(int mx, int my, int mz) {
+		Tile tile = world.tile(mx, my, mz);
+		Creature other = world.creature(mx, my, mz);
+		this.x = mx;
+		this.y = my;
+		this.z = mz;
+
+		if(other == null) {
+			
+			ai.onEnter(x, y, z, tile);
+		}
+		else {
+			
+			notify("You find yourself phased into another creature");
+			notify("In a violent fit the " +other.name+" explodes");
+			notify("You sustain major damage");
+			other.modifyHp(-500);
+			this.modifyHp(-50);
+		}
+	}
 	public Creature creature(int wx, int wy, int wz) {
 	    return world.creature(wx, wy, wz);
 	}

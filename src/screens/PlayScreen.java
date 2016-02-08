@@ -64,7 +64,7 @@ public class PlayScreen implements Screen {
 		factory.newTrogg(world.depth()-1);
 		factory.newTrogg(world.depth()-1);
 		
-		factory.newDeath(player);
+		factory.newDeath(player, world.depth());
 	}
 	private void createItems(EntityFactory factory) {
 		int depth = world.depth();
@@ -89,7 +89,7 @@ public class PlayScreen implements Screen {
 	}
 	
 	private void createWorld(){
-		world = new WorldBuilder(120, 100, 5)
+		world = new WorldBuilder(160, 48, 5)
 					.makeCaves()
 					.build();
 		fov = new FieldOfView(world);

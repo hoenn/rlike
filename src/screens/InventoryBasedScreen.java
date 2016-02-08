@@ -21,6 +21,8 @@ public abstract class InventoryBasedScreen implements Screen {
         this.letters = "abcdefghijklmnopqrstuvwxyz";
     }
     public void displayOutput(AsciiPanel terminal) {
+		terminal.write(getVerb().toUpperCase(), 0,0, AsciiPanel.brightGreen);
+
         ArrayList<String> lines = getList();
     
         int y = 23 - lines.size();
