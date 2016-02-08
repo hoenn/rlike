@@ -4,32 +4,35 @@ import java.awt.event.KeyEvent;
 import java.util.List;
 
 import asciiPanel.AsciiPanel;
+import rlike.ExtraColors;
 
-public class HistoryScreen implements Screen
-{
+public class HistoryScreen implements Screen {
 	private List<String> messages;
 	private Screen prev;
-	
-	public HistoryScreen(List<String> msgs, Screen prev)
-	{
+
+	public HistoryScreen(List<String> msgs, Screen prev) {
 		messages = msgs;
 		this.prev = prev;
-		
-	}
-	
-	public void displayOutput(AsciiPanel terminal)
-	{
-		terminal.write("NEWEST", 10, 0, AsciiPanel.brightYellow);
 
-		for(int i =0; i<messages.size(); i++)
-		{
-			terminal.writeCenter(messages.get(i), i);
+	}
+
+	public void displayOutput(AsciiPanel terminal) {
+		terminal.writeCenter("NEWEST", 0, AsciiPanel.brightYellow);
+
+		for (int i = 0; i < messages.size(); i++) {
+			//If the message is from Death
+	    	if(messages.get(i).contains(""+(char)234)) {
+		        terminal.writeCenter(messages.get(i), i+1, ExtraColors.mediumOrchid);
+
+	    	}
+	    	else
+	    		terminal.writeCenter(messages.get(i), i + 1);
 		}
 	}
 
-	public Screen respondToUserInput(KeyEvent key)
-	{
-		if(key.getKeyCode() == KeyEvent.VK_ESCAPE) return prev;
+	public Screen respondToUserInput(KeyEvent key) {
+		if (key.getKeyCode() == KeyEvent.VK_ESCAPE)
+			return prev;
 		return this;
 	}
 

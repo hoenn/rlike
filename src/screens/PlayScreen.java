@@ -8,6 +8,7 @@ import java.util.List;
 import asciiPanel.AsciiPanel;
 import rlike.Creature;
 import rlike.EntityFactory;
+import rlike.ExtraColors;
 import rlike.FieldOfView;
 import rlike.Item;
 import rlike.Tile;
@@ -56,13 +57,14 @@ public class PlayScreen implements Screen {
 			    factory.newBat(z);
 			}
 		}
-		factory.newGoblin(world.depth()-3);
-		factory.newGoblin(world.depth()-2);
-		factory.newGoblin(world.depth()-2);
-		factory.newGoblin(world.depth()-1);
-		factory.newGoblin(world.depth()-1);
-		factory.newGoblin(world.depth()-1);
-		factory.newDeath();
+		factory.newTrogg(world.depth()-3);
+		factory.newTrogg(world.depth()-2);
+		factory.newTrogg(world.depth()-2);
+		factory.newTrogg(world.depth()-1);
+		factory.newTrogg(world.depth()-1);
+		factory.newTrogg(world.depth()-1);
+		
+		factory.newDeath(player);
 	}
 	private void createItems(EntityFactory factory) {
 		int depth = world.depth();
@@ -119,7 +121,13 @@ public class PlayScreen implements Screen {
 	{
 	    int top = screenHeight - messages.size();
 	    for (int i = 0; i < messages.size(); i++){
-	        terminal.writeCenter(messages.get(i), top + i);
+	    	//If the message is from Death
+	    	if(messages.get(i).contains(""+(char)234)) {
+		        terminal.writeCenter(messages.get(i), top + i, ExtraColors.mediumOrchid);
+
+	    	}
+	    	else
+	    		terminal.writeCenter(messages.get(i), top + i);
 	    }
 	    if(messages.size()>0)
 	    {

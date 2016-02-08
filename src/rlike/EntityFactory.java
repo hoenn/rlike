@@ -43,18 +43,18 @@ public class EntityFactory {
 		new GiantRatAi(rat, player);
 		return rat;
 	}
-	public Creature newGoblin(int depth) {
-		Creature goblin = new Creature(world, "goblin", 'g', AsciiPanel.cyan, 10, 25, 5, 15);
-		world.addAtEmptyLocation(goblin, depth);
-		new GoblinAi(goblin);
-		return goblin;
+	public Creature newTrogg(int depth) {
+		Creature trogg = new Creature(world, "trogg", 'g', AsciiPanel.cyan, 10, 25, 5, 15);
+		world.addAtEmptyLocation(trogg, depth);
+		new TroggAi(trogg);
+		return trogg;
 	}
 	
 	//Key Creature
-	public Creature newDeath() {
+	public Creature newDeath(Creature player) {
 		Creature death = new Creature(world, "Dark Lord", (char)234, ExtraColors.mediumOrchid, 100000, 10000, 10000, 10000);
 		world.addAtEmptyLocation(death,  0);
-		new DeathAi(death);
+		new DeathAi(death, player);
 		return death;
 	}
 	

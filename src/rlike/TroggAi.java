@@ -1,8 +1,8 @@
 package rlike;
 
-public class GoblinAi extends CreatureAi {
+public class TroggAi extends CreatureAi {
 	private Creature target = null;
-	public GoblinAi(Creature creature) {
+	public TroggAi(Creature creature) {
 		super(creature);
 	}
 	public void onUpdate() {
