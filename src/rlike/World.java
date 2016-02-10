@@ -88,6 +88,17 @@ public class World {
 		creature.z = z;
 		creatures.add(creature);
 	}
+	public void addAtEmptyLocation(Creature creature, int x, int y, int z) {
+		if(tile(x, y, z).isGround() || creature(x, y, z)!=null) {
+			creature.x = x;
+			creature.y = y;
+			creature.z = z;
+			creatures.add(creature);
+		}
+		else
+			creature.modifyHp(-100);
+			
+	}
 	public void addAtEmptyLocation(Item item, int depth) {
 	    int x;
 	    int y;

@@ -31,6 +31,13 @@ public class EntityFactory {
 		new FungusAi(fungus, this);
 		return fungus;
 	}
+	public Creature newFungus(int x, int y, int depth) {
+		Creature fungus = new Creature(world, "fungi", (char)5, AsciiPanel.brightMagenta, 10, 0, 3, 9);
+		world.addAtEmptyLocation(fungus, x, y, depth);
+		new FungusAi(fungus, this);
+		return fungus;
+		
+	}
 	public Creature newBat(int depth){
 	    Creature bat = new Creature(world, "bat", 'b', AsciiPanel.yellow, 15, 15, 0, 5);
 	    world.addAtEmptyLocation(bat, depth);
@@ -54,7 +61,7 @@ public class EntityFactory {
 	public Creature newDeath(Creature player, int depth) {
 		Creature death = new Creature(world, "Dark Lord", (char)234, ExtraColors.mediumOrchid, 100000, 10000, 10000, 10000);
 		world.addAtEmptyLocation(death,  0);
-		new DeathAi(death, player, depth);
+		new DeathAi(death, player, depth, this);
 		return death;
 	}
 	

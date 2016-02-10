@@ -1,6 +1,10 @@
 package rlike;
+
+import java.util.List;
+
 public class DeathAi extends CreatureAi {	
 	private Creature player;
+	private EntityFactory factory;
 	private int worldDepth;
 	private String[] messages = {
 			"The monsters below grow impatient",
@@ -17,10 +21,11 @@ public class DeathAi extends CreatureAi {
 			"I await you",
 			"As you wander the dungeon grows stronger"
 	};
-	public DeathAi(Creature creature, Creature player, int depth) {
+	public DeathAi(Creature creature, Creature player, int depth, EntityFactory factory) {
 		super(creature);
 		this.player = player;
 		this.worldDepth = depth;
+		this.factory = factory;
 	}
 
 	public void onUpdate(){
@@ -32,7 +37,7 @@ public class DeathAi extends CreatureAi {
 		if(Math.random() < 0.03) {
 			sendPlayerRandomMessage();
 		}
-		if(Math.random() < 0.005) {
+		else if(Math.random() < 0.0005 && player.z>0) {
 			
 			int teleportZ = (int) (Math.random()* worldDepth);
 			if(teleportZ>player.z)
@@ -52,6 +57,15 @@ public class DeathAi extends CreatureAi {
 				
 			}
 				
+		}
+		else if(Math.random() < 0.01) {
+			player.notify("You feel mushrooms sprout at your feet");
+			sendPlayerMessage("A bounty of poison");
+			player.modifyHp(-5);
+			List<Point> surroundingTiles = player.getSurroundingTiles();
+			for(Point p: surroundingTiles) {
+				factory.newFungus(p.x, p.y, player.z);
+			}
 		}
 		
 	}

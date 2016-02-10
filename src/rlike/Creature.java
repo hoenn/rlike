@@ -96,7 +96,9 @@ public class Creature extends Entity{
 		this.maxFood = 1000;
 		this.food = 750;
 		this.level = 1;
-		this.xpToLevel = (int)((50*level)/2);
+		this.xpToLevel = (int)((10*level)/2);
+		this.xp = (int)(Math.random() * (xpToLevel/2));
+
 	}
 	public void modifyXp(int amt) {
 		xp+=amt;
@@ -105,7 +107,7 @@ public class Creature extends Entity{
 
 		if(xp>xpToLevel) {
 			level++;
-			xpToLevel = (int)((50*level)/2);
+			xpToLevel = (int)((10*level)/2);
 			modifyHp(maxHp);
 			doAction("advance to level %d",level);
 			ai.onLevelUp();
@@ -113,7 +115,7 @@ public class Creature extends Entity{
 		}
 	}
 	public void gainXp(Creature other) {
-		modifyXp((int)(other.defenseValue+other.attackValue)/2);
+		modifyXp((int)(other.xp+(other.defenseValue+other.attackValue)/2));
 	}
 	public void pickUp() {
 		Item item = world.item(x, y,  z);
@@ -273,12 +275,14 @@ public class Creature extends Entity{
 		world.dig(wx, wy, wz);
 		doAction("dig");		
 		//If no shovel
-		if(!inventory.hasItem("shovel"))
-			modifyFood(-20);
+		if(inventory.hasItem("shovel"))
+			modifyFood(-1);
 		else
 			if (Math.random() < .4) 
-				modifyFood(-1);
-			
+				modifyFood(-20);
+
+		if(Math.random()<.4)
+			modifyXp(1);
 	}
 	
 	public void unequip(Item item){
@@ -347,7 +351,10 @@ public class Creature extends Entity{
 	         }
 	    }
 	}
-
+	public List<Point> getSurroundingTiles() {
+		Point p = new Point(x, y, z);
+		return p.neighbors8();
+	}
 	
 	private String makeSecondPerson(String text){
 		String[] words = text.split(" ");

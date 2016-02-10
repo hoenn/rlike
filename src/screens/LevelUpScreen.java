@@ -20,6 +20,8 @@ public class LevelUpScreen implements Screen {
 	
 	@Override
 	public void displayOutput(AsciiPanel terminal) {
+		terminal.write("LEVEL UP", 0,0, AsciiPanel.brightGreen);
+
 		List<String> options = manager.getLevelUpOptions();
 		
 		int y = 5;
