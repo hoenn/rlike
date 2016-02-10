@@ -26,7 +26,9 @@ public class PlayerAi extends CreatureAi {
 			creature.dig(x, y, z);
 		}
 	}
-	
+	public void onLevelUp() {
+		
+	}
 	public void onNotify(String message){
 		messages.add(message);
 	}

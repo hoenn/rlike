@@ -12,6 +12,10 @@ public class Creature extends Entity{
 	
 	private int visionRadius;
 	public int visionRadius() { return visionRadius; }
+	public void gainVision() {
+		visionRadius += 1;
+		doAction("gain sight");
+	}
 
 
 	private CreatureAi ai;
@@ -19,6 +23,11 @@ public class Creature extends Entity{
 	
 	private int maxHp;
 	public int maxHp() { return maxHp; }
+	
+	public void gainMaxHp() {
+		maxHp += 10;
+		doAction("gain constitution");
+	}
 	
 	private int hp;
 	public int hp() { return hp; }
@@ -29,6 +38,15 @@ public class Creature extends Entity{
 	private int food;
 	public int food() { return food; }
 	
+	private int xp;
+	public int xp() { return xp; }
+	
+	private int xpToLevel;
+	public int xpToLevel() { return xpToLevel; }
+	
+	private int level;
+	public int level() { return level; }
+	
 
 	
 	private int attackValue;
@@ -36,14 +54,22 @@ public class Creature extends Entity{
 	    return attackValue
 	     + (weapon == null ? 0 : weapon.attackValue())
 	     + (armor == null ? 0 : armor.attackValue());
-	  }
+	}
+	public void gainAttackValue() {
+		attackValue+=2;
+		doAction("gain brawn");
+	}
 	
 	private int defenseValue;
 	public int defenseValue() {
 		    return defenseValue
 		     + (weapon == null ? 0 : weapon.defenseValue())
 		     + (armor == null ? 0 : armor.defenseValue());
-		  }	
+	}
+	public void gainDefenseValue() {
+		defenseValue+=2;
+		doAction("gain protection");
+	}
 	private Inventory inventory;
 	public Inventory inventory() { return inventory; }
 	
@@ -69,6 +95,25 @@ public class Creature extends Entity{
 		this.visionRadius = visionRadius;
 		this.maxFood = 1000;
 		this.food = 750;
+		this.level = 1;
+		this.xpToLevel = (int)((50*level)/2);
+	}
+	public void modifyXp(int amt) {
+		xp+=amt;
+		
+	    notify("You %s %d xp.", amt< 0 ? "lost" : "gained", amt);
+
+		if(xp>xpToLevel) {
+			level++;
+			xpToLevel = (int)((50*level)/2);
+			modifyHp(maxHp);
+			doAction("advance to level %d",level);
+			ai.onLevelUp();
+			xp=0;
+		}
+	}
+	public void gainXp(Creature other) {
+		modifyXp((int)(other.defenseValue+other.attackValue)/2);
 	}
 	public void pickUp() {
 		Item item = world.item(x, y,  z);
@@ -187,11 +232,14 @@ public class Creature extends Entity{
 		doAction("attack the '%s' for %d damage", other.name, amount);
 		
 		other.modifyHp(-amount);
+		if(other.hp<1)
+			this.gainXp(other);
 	}
 
 	public void modifyHp(int amount) { 
 		hp += amount;
-		
+		if(hp>maxHp)
+			hp = maxHp;
 		if (hp < 1) {
 			doAction("die");
 			leaveCorpse();

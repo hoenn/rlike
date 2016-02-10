@@ -71,5 +71,8 @@ public class CreatureAi {
 	
 	public void onNotify(String message){
 	}
+	public void onLevelUp() {
+		new LevelUpManager().autoLevelUp(creature);
+	}
 }
 

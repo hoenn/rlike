@@ -18,7 +18,7 @@ public class EntityFactory {
 	}
 	//Player
 	public Creature newPlayer(List<String> messages){
-		Creature player = new Creature(world, "hero", (char)3, AsciiPanel.brightRed, 100, 5, 5, 9);
+		Creature player = new Creature(world, "hero", (char)3, AsciiPanel.brightRed, 100, 20, 5, 9);
 		world.addAtEmptyLocation(player, 0);
 		new PlayerAi(player, messages, fov);
 		return player;
@@ -26,7 +26,7 @@ public class EntityFactory {
 	
 	//Enemies
 	public Creature newFungus(int depth){
-		Creature fungus = new Creature(world, "fungi", (char)5, AsciiPanel.brightMagenta, 10, 0, 0, 9);
+		Creature fungus = new Creature(world, "fungi", (char)5, AsciiPanel.brightMagenta, 10, 0, 3, 9);
 		world.addAtEmptyLocation(fungus, depth);
 		new FungusAi(fungus, this);
 		return fungus;

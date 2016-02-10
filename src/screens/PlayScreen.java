@@ -108,9 +108,10 @@ public class PlayScreen implements Screen {
 		displayMessages(terminal, messages);
 		
 
-		String stats = String.format("hp %3d/%3d - food %3d/%3d - inventory%2d/%2d", player.hp(), player.maxHp(), 
+		String stats = String.format("hp %3d/%3d - food %3d/%3d - inventory%2d/%2d - xp %3d/%3d", player.hp(), player.maxHp(), 
 										player.food(), player.maxFood(), 
-										player.inventory().getSize(),player.inventory().getItems().length);
+										player.inventory().getSize(),player.inventory().getItems().length,
+										player.xp(), player.xpToLevel());
 		terminal.write(stats, 1, 23);
 		
 		if (subScreen != null)
@@ -161,6 +162,7 @@ public class PlayScreen implements Screen {
 	
 	@Override
 	public Screen respondToUserInput(KeyEvent key) {
+		int level = player.level();
 		if (subScreen != null) {
 			 
 	         subScreen = subScreen.respondToUserInput(key);
@@ -188,6 +190,9 @@ public class PlayScreen implements Screen {
 	            break;
 	        case '>': player.moveBy( 0, 0, 1); break;
         
+		}
+		if(player.level()>level){
+			subScreen = new LevelUpScreen(player, player.level()-level);
 		}
 		//Pressing shift alone won't skip turn
 		if(key.getKeyCode() != KeyEvent.VK_SHIFT)
