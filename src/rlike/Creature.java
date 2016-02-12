@@ -295,7 +295,7 @@ public class Creature extends Entity{
 		world.dig(wx, wy, wz);
 		doAction("dig");		
 		//If no shovel
-		if(inventory.hasItem("shovel"))
+		if(weapon!=null && weapon.name=="shovel")
 			modifyFood(-1);
 		else
 			if (Math.random() < .4) 
