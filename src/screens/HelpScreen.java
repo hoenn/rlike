@@ -33,7 +33,7 @@ public class HelpScreen implements Screen
 		terminal.write("'g' to pick up", 2, y++);
 		terminal.write("'d' to drop", 2, y++);
 		terminal.write("'e' to eat", 2, y++);
-		terminal.write("'w' to wear or wield", 2, y++);
+		terminal.write("'w' to wear or equip armor and weapons", 2, y++);
 		terminal.write("'h' for help", 2, y++);
 		terminal.write("'m' for recent messages", 2, y++);
 		terminal.write("'x' to examine your items", 2, y++);
