@@ -32,4 +32,7 @@ public class PlayerAi extends CreatureAi {
 	public void onNotify(String message){
 		messages.add(message);
 	}
+	public Tile rememberedTile(int wx, int wy, int wz) {
+        return fov.tile(wx, wy, wz);
+    }
 }

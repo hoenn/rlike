@@ -38,6 +38,7 @@ public class PlayScreen implements Screen {
 		EntityFactory entityFactory = new EntityFactory(world, fov);
 		createCreatures(entityFactory);
 		createItems(entityFactory);
+		
 	}
 	
 	private void createCreatures(EntityFactory factory){
@@ -72,6 +73,7 @@ public class PlayScreen implements Screen {
 	        for (int i = 0; i < world.width() * world.height() / 40; i++){
 	            if(i%2==0)
 	            	factory.newHerb(z);
+
 	            
 	            factory.newRock(z);
 	        }
@@ -174,10 +176,13 @@ public class PlayScreen implements Screen {
 			case KeyEvent.VK_UP: player.moveBy( 0,-1, 0); break;
 			case KeyEvent.VK_DOWN: player.moveBy( 0, 1, 0); break;
 
-			case KeyEvent.VK_H: return new HistoryScreen(messageHistory, this);
+			case KeyEvent.VK_M: return new MessagesScreen(messageHistory, this);
+			case KeyEvent.VK_H: return new HelpScreen(this);
 			case KeyEvent.VK_D: subScreen = new DropScreen(player); break;
 			case KeyEvent.VK_E: subScreen = new EatScreen(player); break;
-			case KeyEvent.VK_W: subScreen = new EquipScreen(player); break;
+			case KeyEvent.VK_W: subScreen = new EquipScreen(player); break; 
+			case KeyEvent.VK_L: subScreen = new LookScreen(player, "Look", player.x-getScrollX(), player.y-getScrollY()); break;
+			case KeyEvent.VK_X: subScreen = new InventoryInfoScreen(player); break;
 		}
 		//Special handling for keys that don't have static KeyEvents
 		switch (key.getKeyChar()){

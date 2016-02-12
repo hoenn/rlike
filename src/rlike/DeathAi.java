@@ -34,40 +34,51 @@ public class DeathAi extends CreatureAi {
 		//Hurt the player
 		//Teleport the player
 		//Give player shady items
-		if(Math.random() < 0.03) {
-			sendPlayerRandomMessage();
+		if(Math.random() < 0.003) {
+			sendPlayerRandomMessage();	
 		}
 		else if(Math.random() < 0.0005 && player.z>0) {
-			
-			int teleportZ = (int) (Math.random()* worldDepth);
-			if(teleportZ>player.z)
-				player.notify("Death attempts to steal you to the depths below");
-			else
-				player.notify("Death attempts to bring you ever closer");
-			
-			//Teleport fails
-			if(player.z == teleportZ) {
-				player.notify("You feel cold hands about you but remain steadfast");
-				sendPlayerMessage("Not so easily will you escape me next time");
-			}
-			else {
-				player.notify("You succumb to the strength of a god");
-				sendPlayerMessage("I can so easily grip your soul");
-				player.teleport(player.x, player.y, teleportZ);
+			switch((int)(Math.random()*3)) {
+				case 0: //Teleport player vertically
+						if(player.z>0) {
+							int teleportZ = (int) (Math.random()* worldDepth);
+							if(teleportZ>player.z)
+								player.notify("Death attempts to steal you to the depths below");
+							else
+								player.notify("Death attempts to bring you ever closer");
+							
+							//Teleport fails
+							if(player.z == teleportZ) {
+								player.notify("You feel cold hands about you but remain steadfast");
+								sendPlayerMessage("Not so easily will you escape me next time");
+							}
+							else {
+								player.notify("You succumb to the strength of a god");
+								sendPlayerMessage("I can so easily grip your soul");
+								player.teleport(player.x, player.y, teleportZ);
+								
+							}
+						}
+						break;
+				case 1: //Sprout mushrooms around player
+						player.notify("You see mushrooms rapidly sprout at your feet");
+						sendPlayerMessage("A bounty of poison");
+						player.modifyHp(-15);
+						List<Point> surroundingTiles = player.getSurroundingTiles();
+						for(Point p: surroundingTiles) {
+							factory.newFungus(p.x, p.y, player.z);
+						}
+						break;
+				case 2: //Teleport player to Death
+						if(player.z<2) {
+							player.notify("Your vision goes black");
+							sendPlayerMessage("I wanted to see your struggle firsthand");
+							player.teleport(this.creature.x, this.creature.y+1, this.creature.z);
+						}
+						break;
 				
-			}
-				
+			}			
 		}
-		else if(Math.random() < 0.01) {
-			player.notify("You feel mushrooms sprout at your feet");
-			sendPlayerMessage("A bounty of poison");
-			player.modifyHp(-5);
-			List<Point> surroundingTiles = player.getSurroundingTiles();
-			for(Point p: surroundingTiles) {
-				factory.newFungus(p.x, p.y, player.z);
-			}
-		}
-		
 	}
 	public void sendPlayerRandomMessage() {
 		sendPlayerMessage(messages[(int)(Math.random()*messages.length)]);

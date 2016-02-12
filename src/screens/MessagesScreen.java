@@ -6,11 +6,11 @@ import java.util.List;
 import asciiPanel.AsciiPanel;
 import rlike.ExtraColors;
 
-public class HistoryScreen implements Screen {
+public class MessagesScreen implements Screen {
 	private List<String> messages;
 	private Screen prev;
 
-	public HistoryScreen(List<String> msgs, Screen prev) {
+	public MessagesScreen(List<String> msgs, Screen prev) {
 		messages = msgs;
 		this.prev = prev;
 

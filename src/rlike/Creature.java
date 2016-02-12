@@ -47,7 +47,9 @@ public class Creature extends Entity{
 	private int level;
 	public int level() { return level; }
 	
-
+	public String info() {
+        return String.format("     level:%d     attack:%d     defense:%d     hp:%d", level, attackValue(), defenseValue(), hp);
+    }
 	
 	private int attackValue;
 	public int attackValue() {
@@ -148,10 +150,22 @@ public class Creature extends Entity{
 	{
 		return ai.canSee(wx, wy ,wz);
 	}
-	public Tile tile(int wx, int wy, int wz)
-	{
-		return world.tile(wx, wy, wz);
-	}
+	public Tile realTile(int wx, int wy, int wz) {
+        return world.tile(wx, wy, wz);
+    }
+
+	public Tile tile(int wx, int wy, int wz) {
+        if (canSee(wx, wy, wz))
+            return world.tile(wx, wy, wz);
+        else
+            return ai.rememberedTile(wx, wy, wz);
+    }
+	public Item item(int wx, int wy, int wz) {
+        if (canSee(wx, wy, wz))
+            return world.item(wx, wy, wz);
+        else
+            return null;
+    }
 	public void moveBy(int mx, int my, int mz){
 		if (mx==0 && my==0 && mz==0)
 		    return;
@@ -177,6 +191,9 @@ public class Creature extends Entity{
 		
 		if (other == null)
 		{
+			if(Math.random() < .005 ) {
+				modifyXp(1);
+			}
 			ai.onEnter(x+mx, y+my, z+mz, tile);
 			if (Math.random() < .1) 
 				modifyFood(-1);
@@ -210,8 +227,11 @@ public class Creature extends Entity{
 		}
 	}
 	public Creature creature(int wx, int wy, int wz) {
-	    return world.creature(wx, wy, wz);
-	}
+        if (canSee(wx, wy, wz))
+            return world.creature(wx, wy, wz);
+        else
+            return null;
+    }
 	public List<Creature> nearbyCreaturesInSight() {
 		
 		List<Creature> nearby = new ArrayList<Creature>();
@@ -281,7 +301,7 @@ public class Creature extends Entity{
 			if (Math.random() < .4) 
 				modifyFood(-20);
 
-		if(Math.random()<.4)
+		if(Math.random()<.01)
 			modifyXp(1);
 	}
 	

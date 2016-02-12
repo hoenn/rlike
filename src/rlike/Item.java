@@ -20,6 +20,26 @@ public class Item extends Entity{
 	{
 		super(glyph, color, name);
 	}
+	
+	public String info() {
+	    String info = "";
+	    if(name.contains("enchanted")) {
+	    	info += "     attack: ??     defense: ??     food: ??";
+	    }
+	    else {
+	    	if (attackValue != 0)
+		        info += "     attack:" + attackValue;
+
+		    if (defenseValue != 0)
+		        info += "     defense:" + defenseValue;
+
+		    if (foodValue != 0)
+		        info += "     food:" + foodValue;
+	    }
+	    
+	    
+	    return info;
+	}
 
 	
 }
