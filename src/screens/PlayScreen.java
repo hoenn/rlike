@@ -76,7 +76,6 @@ public class PlayScreen implements Screen {
 
 	            
 	            factory.newRock(z);
-	            factory.newRandomWeapon(z);
 	        }
 	        factory.newRandomWeapon(z);
 	        factory.newRandomArmor(z);

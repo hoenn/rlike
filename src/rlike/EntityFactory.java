@@ -52,7 +52,10 @@ public class EntityFactory {
 	}
 	public Creature newTrogg(int depth) {
 		Creature trogg = new Creature(world, "trogg", 'g', AsciiPanel.cyan, 10, 25, 5, 15);
+		trogg.equip(newRandomArmor(depth));
+		trogg.equip(newRandomWeapon(depth));
 		world.addAtEmptyLocation(trogg, depth);
+
 		new TroggAi(trogg);
 		return trogg;
 	}

@@ -9,6 +9,7 @@ public class TroggAi extends CreatureAi {
 		if (target==null)
 		{
 			wander();
+			
 			target = seekTarget();
 		}
 		else {
@@ -19,5 +20,11 @@ public class TroggAi extends CreatureAi {
 			else
 				target = null;
 		}	
+		//Grab and corpses walked past
+		if(canPickUp())
+			creature.pickUp();
+	}
+	public boolean canPickUp() {
+		return super.canPickUp() && creature.item(creature.x, creature.y, creature.z).name.contains("corpse");
 	}
 }

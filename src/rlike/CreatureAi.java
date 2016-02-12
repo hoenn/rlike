@@ -26,6 +26,10 @@ public class CreatureAi {
     
         return true;
     }
+	public boolean canPickUp() {
+        return creature.item(creature.x, creature.y, creature.z) != null
+          && !creature.inventory().isFull();
+    }
 	public void onEnter(int x, int y, int z, Tile tile){
 	    if (tile.isGround()){
 	         creature.x = x;
