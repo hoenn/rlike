@@ -45,6 +45,7 @@ public class PlayScreen implements Screen {
 		player = factory.newPlayer(messages);
 		
 		for (int z = 0; z < world.depth(); z++){
+
 			for (int i = 0; i < 8; i++){
 				factory.newFungus(z);
 			}
@@ -56,6 +57,8 @@ public class PlayScreen implements Screen {
 			}
 			for (int i = 0; i < 20; i++){
 			    factory.newBat(z);
+				factory.newGiantRat(z, player);
+
 			}
 		}
 		factory.newTrogg(world.depth()-3);

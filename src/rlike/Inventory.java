@@ -22,6 +22,14 @@ public class Inventory {
 			}
 		}
 	}
+	public Item get(String name) {
+		for(int i = 0; i < items.length; i++) {
+			if(items[i].name.equals(name))
+				return items[i];
+		}
+		//Not found
+		return null;
+	}
 	public void removeSlot(int i) {
 		if(items[i]!=null) {
 			items[i] = null;
