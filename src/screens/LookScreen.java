@@ -1,5 +1,6 @@
 package screens;
 
+import asciiPanel.AsciiPanel;
 import rlike.Creature;
 import rlike.Item;
 import rlike.Tile;
@@ -24,5 +25,9 @@ public class LookScreen extends TargettingBasedScreen {
     
         Tile tile = player.tile(x, y, player.z);
         caption = tile.glyph() + " " + tile.info();
+    }
+    public void displayOutput(AsciiPanel terminal) {
+		terminal.write("LOOK", 0, 0, AsciiPanel.brightGreen);
+    	super.displayOutput(terminal);
     }
 }

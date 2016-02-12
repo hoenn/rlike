@@ -17,7 +17,7 @@ public class MessagesScreen implements Screen {
 	}
 
 	public void displayOutput(AsciiPanel terminal) {
-		terminal.write("HISTORY", 0,0, AsciiPanel.brightGreen);
+		terminal.write("MESSAGES", 0,0, AsciiPanel.brightGreen);
 		terminal.writeCenter("NEWEST", 23, AsciiPanel.brightYellow);
 
 		for (int i = 0; i < messages.size(); i++) {

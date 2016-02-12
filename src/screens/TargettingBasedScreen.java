@@ -29,7 +29,7 @@ public class TargettingBasedScreen implements Screen
 	        if (p.x < 0 || p.x >= 80 || p.y < 0 || p.y >= 24)
 	            continue;
 	        
-	        terminal.write('*', p.x, p.y, AsciiPanel.cyan);
+	        terminal.write('*', p.x, p.y, AsciiPanel.brightYellow);
 	    }
 	    
 	    terminal.clear(' ', 0, 23, 80, 1);
