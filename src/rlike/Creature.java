@@ -10,6 +10,18 @@ public class Creature extends Entity {
 	public int x;
 	public int y;
 	public int z;
+	
+	public int godModeCount = 0;
+	private boolean godMode = false;
+	public boolean isGodMode() {
+		return godMode;
+	}
+	
+	private boolean protection = false;
+	public boolean hasProtection() {
+		return protection;
+	}
+	
 
 	private int visionRadius;
 
@@ -33,10 +45,20 @@ public class Creature extends Entity {
 	public int maxHp() {
 		return maxHp;
 	}
+	
+	public void setHp(int amt) {
+		hp = amt;
+	}
 
 	public void gainMaxHp() {
 		maxHp += 10;
 		doAction("gain constitution");
+	}
+	
+	public int fortitudeCount = 0;
+	public void gainFortitude(int amt) {
+		hp += amt;
+		doAction("gain absolute fortitude");
 	}
 
 	private int hp;
@@ -90,6 +112,9 @@ public class Creature extends Entity {
 		attackValue += 2;
 		doAction("gain brawn");
 	}
+	public void modifyAttackValue(int amt) {
+		attackValue += amt;
+	}
 
 	private int defenseValue;
 
@@ -142,7 +167,22 @@ public class Creature extends Entity {
 		this.xp = (int) (Math.random() * (xpToLevel / 2));
 
 	}
-
+	public void read(Item item) {
+		String name = item.name;
+		if(name.contains("Volume 1")) {
+			godMode = true;
+			modifyAttackValue(10000);
+			godModeCount = 5;
+			this.color = Color.YELLOW;
+		} else if (name.contains("Volume 2")) {
+			protection = true;
+			this.color = Color.WHITE;
+		} else if(name.contains("Volume 3")) {
+			gainFortitude(999);
+			fortitudeCount = 3;
+			this.color = Color.GREEN;
+		}
+	}
 	public void modifyXp(int amt) {
 		xp += amt;
 
@@ -303,7 +343,7 @@ public class Creature extends Entity {
 
 	public void modifyHp(int amount) {
 		hp += amount;
-		if (hp > maxHp)
+		if (fortitudeCount==0&& hp > maxHp)
 			hp = maxHp;
 		if (hp < 1) {
 			doAction("die");

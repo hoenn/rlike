@@ -11,6 +11,7 @@ import rlike.EntityFactory;
 import rlike.ExtraColors;
 import rlike.FieldOfView;
 import rlike.Item;
+import rlike.Point;
 import rlike.Tile;
 import rlike.World;
 import rlike.WorldBuilder;
@@ -25,6 +26,7 @@ public class PlayScreen implements Screen {
 	private List<String> messages;
 	private List<String> messageHistory;
 	private FieldOfView fov;
+	private Point exit;
 	public static boolean safeReturn = true;
 	
 	public PlayScreen(){
@@ -34,7 +36,6 @@ public class PlayScreen implements Screen {
 		messages = new ArrayList<String>();
 		messageHistory = new ArrayList<String>();
 		createWorld();
-		
 		EntityFactory entityFactory = new EntityFactory(world, fov);
 		createCreatures(entityFactory);
 		createItems(entityFactory);
@@ -95,7 +96,7 @@ public class PlayScreen implements Screen {
 	
 	private void createWorld(){
 		world = new WorldBuilder(160, 48, 5)
-					.makeCaves()
+					.makeDungeon()
 					.build();
 		fov = new FieldOfView(world);
 	}
@@ -185,6 +186,7 @@ public class PlayScreen implements Screen {
 				case KeyEvent.VK_D: subScreen = new DropScreen(player); break;
 				case KeyEvent.VK_E: subScreen = new EatScreen(player); break;
 				case KeyEvent.VK_W: subScreen = new EquipScreen(player); break; 
+				case KeyEvent.VK_R: subScreen = new ReadScreen(player); break;
 				case KeyEvent.VK_L: subScreen = new LookScreen(player, "Look", player.x-getScrollX(), player.y-getScrollY()); break;
 				case KeyEvent.VK_X: subScreen = new InventoryInfoScreen(player); break;
 			}

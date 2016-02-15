@@ -7,6 +7,8 @@ public class DeathAi extends CreatureAi {
 	private EntityFactory factory;
 	private int worldDepth;
 	private boolean hasBeenHit = false;
+	private boolean hasBeenATurn = false;
+	private boolean vulnerable = false;
 	private String[] messages = {
 			"The monsters below grow impatient",
 			"The walls are brittle.",
@@ -35,14 +37,52 @@ public class DeathAi extends CreatureAi {
 	}
 
 	public void onUpdate(){
-		//If hit, retaliate
-		if(creature.hp()<creature.maxHp() && !hasBeenHit) {
-			sendPlayerMessage("You fool. To think you could face the god of death");
-			player.modifyHp(-1000);
+		if(vulnerable && hasBeenHit && hasBeenATurn) {
+			if(player.isGodMode()) {
+				player.attack(this.creature);
+				player.notify("A yellow lion escapes your weapon and bites death at the neck");
+				player.attack(this.creature);
+			}
+			else {
+				sendPlayerMessage("You've given me a moment too many to recuperate");
+				sendPlayerMessage("With this your soul is mine");
+				sendPlayerMessage("You will remain here with me forever");
+				player.modifyHp(-1000000);
+			}
 		}
-		else if(creature.hp() < creature.maxHp() && hasBeenHit) {
-			sendPlayerMessage("What sorcery is this?!");
+		else {
+			//If hit, retaliate
+			if(creature.hp()<creature.maxHp() && !hasBeenHit) {
+				player.notify("Death takes a vicious swing with his scythe");
+				sendPlayerMessage("You fool. To think you could face the god of death");
+				player.modifyHp(-1000);
+				hasBeenHit = true;
+			} //If the player survives try a spell
+			else if(creature.hp() < creature.maxHp() && hasBeenHit) {
+				
+				if(hasBeenATurn) {
+					sendPlayerMessage("Feel my true power!");
+					player.notify("Death casts powerful shadow magic at you");
+					if(!player.hasProtection()) {
+						player.modifyHp(-10000);
+					}
+					else {
+						player.notify("You use your magical guard to reflect the spell");
+						sendPlayerMessage("This cannot be! How can you rival my strength?!");
+						player.notify("Death staggers in exhaustion. Strike with the fury of the Maginomicon!");
+						vulnerable = true;
+					}
+				}
+				else
+				{
+					sendPlayerMessage("What sorcery is this?! You live my famous scythe?!");
+					player.notify("Death prepares a sinister spell, protect yourself!");
+					hasBeenATurn = true;
+				}			
+			}
+		
 		}
+
 		if(Math.random() < 0.003) {
 			sendPlayerRandomMessage();	
 		}

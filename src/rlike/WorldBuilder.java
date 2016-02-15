@@ -176,7 +176,7 @@ public class WorldBuilder {
 		return candidates;
 	}
 	
-	public WorldBuilder makeCaves() {
+	public WorldBuilder makeDungeon() {
 		return randomizeTiles()
 				.smooth(8)
 				.createRegions()

@@ -1,5 +1,6 @@
 package rlike;
 
+import java.awt.Color;
 import java.util.List;
 
 import java.util.List;
@@ -25,6 +26,25 @@ public class PlayerAi extends CreatureAi {
 		} else if (tile.isDiggable()) {
 			creature.dig(x, y, z);
 		}
+	}
+	public void onUpdate() {
+		if(creature.fortitudeCount>0) {
+			creature.fortitudeCount--;	
+			if(creature.fortitudeCount == 0) {
+				creature.notify("Your fortitude depletes. You are restored to your regular constitution");
+				creature.color = Color.RED;
+				creature.setHp(creature.maxHp());
+			}
+		}
+		if(creature.godModeCount>0) {
+			creature.godModeCount--;
+			if(creature.godModeCount ==0) {
+				creature.notify("Your blessing fades. Your regular strength returns");
+				creature.color = Color.RED;
+				creature.modifyAttackValue(-10000);
+			}
+		}
+			
 	}
 	public void onLevelUp() {
 		

@@ -72,7 +72,17 @@ public class World {
 		if (tile(x, y, z).isDiggable())
 			tiles[x][y][z] = Tile.FLOOR;
 	}
-	
+	public Point getEmptyLocation(int z) {
+		int x;
+		int y;
+		
+		do {
+			x = (int)(Math.random() * width);
+			y = (int)(Math.random() * height);
+		} 
+		while (!tile(x,y,z).isGround() || creature(x,y,z) != null);
+		return new Point(x,y,z);	
+	}
 	public void addAtEmptyLocation(Creature creature, int z){
 		int x;
 		int y;
@@ -99,6 +109,14 @@ public class World {
 			creature.modifyHp(-100);
 			
 	}
+	public void forceAddAtLocation(Creature creature, int x, int y, int z) {
+		if(creature(x,y,z)!=null)
+			creature(x,y,z).modifyHp(-10000);
+		creature.x = x;
+		creature.y = y; 
+		creature.z = z;
+		creatures.add(creature);
+	}
 	public void addAtEmptyLocation(Item item, int depth) {
 	    int x;
 	    int y;
@@ -110,6 +128,9 @@ public class World {
 	    while (!tile(x,y,depth).isGround() || item(x,y,depth) != null);
 	    
 	    items[x][y][depth] = item;
+	}
+	public void addExitStairs(int x, int y) {
+        tiles[x][y][0] = Tile.STAIRS_UP;	    
 	}
 	public void remove(int x, int y, int z) {
 	    items[x][y][z] = null;
