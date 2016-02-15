@@ -18,7 +18,7 @@ public class EntityFactory {
 	}
 	//Player
 	public Creature newPlayer(List<String> messages){
-		Creature player = new Creature(world, "hero", (char)3, AsciiPanel.brightRed, 100, 9, 3, 9);
+		Creature player = new Creature(world, "hero", (char)3, AsciiPanel.brightRed, 10990, 9, 3, 9);
 		world.addAtEmptyLocation(player, 0);
 		new PlayerAi(player, messages, fov);
 		return player;
@@ -94,12 +94,16 @@ public class EntityFactory {
 		world.addAtEmptyLocation(enchSword, depth);
 		enchSword.modifyAttackValue((int)(Math.random()*10)+10);
 		enchSword.modifyDefenseValue((int)(Math.random()*10));
+		enchSword.modifyHpValue((int)((Math.random()*200)-100));
+		enchSword.modifyFoodValue((int)(Math.random()*1000-500));
 		return enchSword;
 	}
 	public Item newEnchantedArmor(int depth) {
 		Item enchArmor = new Item('{', AsciiPanel.brightBlue, "enchanted armor");
 		world.addAtEmptyLocation(enchArmor, depth);
 		enchArmor.modifyDefenseValue((int)(Math.random()*25));
+		enchArmor.modifyHpValue((int)((Math.random()*200)-100));
+		enchArmor.modifyFoodValue((int)(Math.random()*1000-500));
 		return enchArmor;
 	}
 	public Item newClothArmor(int depth) {

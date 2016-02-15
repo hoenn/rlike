@@ -337,6 +337,7 @@ public class Creature extends Entity {
 	public void eat(Item item) {
 
 		modifyFood(item.foodValue());
+		modifyHp(item.hpValue());
 		inventory.remove(item);
 		unequip(item);
 	}

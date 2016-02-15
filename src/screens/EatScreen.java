@@ -14,7 +14,7 @@ public class EatScreen extends InventoryBasedScreen {
     }
 
     protected boolean isAcceptable(Item item) {
-        return item.foodValue() != 0;
+        return item.foodValue() != 0 || item.hpValue() !=0;
     }
 
     protected Screen use(Item item) {
@@ -22,8 +22,16 @@ public class EatScreen extends InventoryBasedScreen {
         String sign = "";
         if(item.foodValue()>0)
         	sign="+";
+        else
+        	sign="-";
+        
+        String hpSign = "";
+        if(item.hpValue()>0)
+        	hpSign="+";
+        else
+        	hpSign="-";
 
-        player.notify("You eat the "+item.name()+". "+sign+item.foodValue()+" food.");
+        player.notify("You eat the "+item.name()+". "+sign+item.foodValue()+" food "+ hpSign+item.hpValue()+" hp");
         return null;
     }
 }	

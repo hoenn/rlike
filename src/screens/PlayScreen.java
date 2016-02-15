@@ -57,7 +57,6 @@ public class PlayScreen implements Screen {
 			}
 			for (int i = 0; i < 20; i++){
 			    factory.newBat(z);
-				factory.newGiantRat(z, player);
 
 			}
 		}
@@ -76,6 +75,7 @@ public class PlayScreen implements Screen {
 	        for (int i = 0; i < world.width() * world.height() / 40; i++){
 	            if(i%2==0)
 	            	factory.newHerb(z);
+	    	    factory.newEnchantedSword(z);
 
 	            
 	            factory.newRock(z);
