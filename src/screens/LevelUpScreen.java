@@ -26,11 +26,11 @@ public class LevelUpScreen implements Screen {
 		
 		int y = 5;
 		terminal.clear(' ', 5, y, 30, options.size() + 2);
-		terminal.write("   Choose a level up bonus    ", 5, y++);
-		terminal.write("------------------------------", 5, y++);
+		terminal.write("    Choose a level up bonus    ", 5, y++);
+		terminal.write("-*--*--*--*--*--*--*--*--*--*-", 5, y++);
 		
 		for (int i = 0; i < options.size(); i++){
-			terminal.write(String.format("[%d] %s", i+1, options.get(i)), 5, y++);
+			terminal.write(String.format("[%d] %s", i+1, options.get(i)), 7, y++);
 		}
 	}
 
