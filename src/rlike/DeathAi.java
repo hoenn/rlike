@@ -29,16 +29,11 @@ public class DeathAi extends CreatureAi {
 	}
 
 	public void onUpdate(){
-		//Should do other things
-		//Upgrade monsters in the dungeon?
-		//Hurt the player
-		//Teleport the player
-		//Give player shady items
 		if(Math.random() < 0.003) {
 			sendPlayerRandomMessage();	
 		}
 		else if(Math.random() < 0.0005 && player.z>0) {
-			switch((int)(Math.random()*3)) {
+			switch((int)(Math.random()*5)) {
 				case 0: //Teleport player vertically
 						if(player.z>0) {
 							int teleportZ = (int) (Math.random()* worldDepth);
@@ -62,20 +57,37 @@ public class DeathAi extends CreatureAi {
 						break;
 				case 1: //Sprout mushrooms around player
 						player.notify("You see mushrooms rapidly sprout at your feet");
-						sendPlayerMessage("A bounty of poison");
+						sendPlayerMessage("Death and decay");
 						player.modifyHp(-15);
 						List<Point> surroundingTiles = player.getSurroundingTiles();
 						for(Point p: surroundingTiles) {
 							factory.newFungus(p.x, p.y, player.z);
 						}
 						break;
-				case 2: //Teleport player to Death
+				case 2://Spawn bats around player
+						player.notify("A flurry of wings flap rapidly around you");
+						sendPlayerMessage("From my friend Dracul");
+						player.modifyHp(-15);
+						List<Point> surroundingTiles1 = player.getSurroundingTiles();
+						for(Point p: surroundingTiles1) {
+							factory.newBat(p.x, p.y, player.z);
+						}
+						break;				
+				case 3: //Teleport player to Death
 						if(player.z<2) {
 							player.notify("Your vision goes black");
 							sendPlayerMessage("I wanted to see your struggle firsthand");
 							player.teleport(this.creature.x, this.creature.y+1, this.creature.z);
 						}
 						break;
+				case 4: //Spawn three troggs into players level
+						factory.newTrogg(player.z);
+						factory.newTrogg(player.z);
+						factory.newTrogg(player.z);
+						player.notify("You hear a frightening growl and other wretched growls in response");
+						sendPlayerMessage("Ogr"+(char)(130)+"moch sends his regards");
+						break;
+				
 				
 			}			
 		}

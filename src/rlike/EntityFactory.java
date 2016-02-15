@@ -44,6 +44,12 @@ public class EntityFactory {
 	    new BatAi(bat);
 	    return bat;
 	}
+	public Creature newBat(int x, int y, int depth) {
+		Creature bat = new Creature(world, "bat", 'b', AsciiPanel.yellow, 15, 15, 0, 5);
+	    world.addAtEmptyLocation(bat, x, y, depth);
+	    new BatAi(bat);
+	    return bat;
+	}
 	public Creature newGiantRat(int depth, Creature player) {
 		Creature rat = new Creature(world, "giant rat", 'r', ExtraColors.darkBrown, 25, 15, 5, 5);
 		world.addAtEmptyLocation(rat,  depth);
