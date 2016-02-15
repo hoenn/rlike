@@ -149,7 +149,8 @@ public class EntityFactory {
 	public Item newRock(int depth){
         Item rock = new Item(',', ExtraColors.slateGray, "rock");
         world.addAtEmptyLocation(rock, depth);
-        rock.modifyFoodValue(-10);
+        rock.modifyFoodValue(10);
+        rock.modifyHpValue(-5);
         return rock;
     }
 	public Item newHerb(int depth) {
@@ -178,7 +179,7 @@ public class EntityFactory {
 	public Item newShovel(int depth) {
 		Item shovel = new Item('1', AsciiPanel.brightYellow, "shovel");
 		world.addAtEmptyLocation(shovel, depth);
-		shovel.modifyAttackValue(5);
+		shovel.modifyAttackValue(6);
 		return shovel;
 	}
 	public Item newVolumeOne(int depth){
