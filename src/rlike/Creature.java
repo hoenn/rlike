@@ -315,6 +315,7 @@ public class Creature extends Entity {
 	private void leaveCorpse() {
 		Item corpse = new Item('%', color, name + " corpse");
 		corpse.modifyFoodValue(maxHp * 2);
+		corpse.modifyHpValue(maxHp/2);
 		world.addAtEmptySpace(corpse, x, y, z);
 		for(Item item: inventory.getItems()) {
 			if(item!=null)
