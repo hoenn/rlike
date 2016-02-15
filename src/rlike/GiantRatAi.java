@@ -9,6 +9,9 @@ public class GiantRatAi extends CreatureAi
 	}
 	
 	public void onUpdate() {
+		if(canPickUp()) {
+			creature.pickUp();
+		}
 		if(creature.canSee(player.x, player.y, player.z))
 			chase(player);
 		else {
@@ -17,7 +20,11 @@ public class GiantRatAi extends CreatureAi
 	}
 	
 	public boolean canPickUp() {
-		String itemName = creature.item(creature.x, creature.y, creature.z).name;
-		return super.canPickUp() && (itemName.contains("fungi") || itemName.contains("cheese"));
+		if(super.canPickUp()) {
+			String itemName = creature.item(creature.x, creature.y, creature.z).name;
+			return (itemName.contains("fungi") || itemName.contains("cheese"));
+		}
+		else
+			return false;
 	}
 }
