@@ -43,8 +43,8 @@ public class DeathAi extends CreatureAi {
 			}
 			else {
 				sendPlayerMessage("You've given me a moment too many to recuperate");
-				sendPlayerMessage("With this your soul is mine");
-				sendPlayerMessage("You will remain here with me forever");
+				player.notify("You see a glowing black dagger enter your chest");
+				sendPlayerMessage("Your time to strike has passed and your soul is mine");
 				player.modifyHp(-1000000);
 			}
 		}

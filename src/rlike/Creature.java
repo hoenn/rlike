@@ -17,9 +17,13 @@ public class Creature extends Entity {
 		return godMode;
 	}
 	
+	public int protectedCount = 0;
 	private boolean protection = false;
 	public boolean hasProtection() {
 		return protection;
+	}
+	public void setProtected(boolean b) {
+		protection = b;
 	}
 	
 
@@ -177,6 +181,7 @@ public class Creature extends Entity {
 		} else if (name.contains("Volume 2")) {
 			protection = true;
 			this.color = Color.WHITE;
+			protectedCount = 3;
 		} else if(name.contains("Volume 3")) {
 			gainFortitude(999);
 			fortitudeCount = 3;

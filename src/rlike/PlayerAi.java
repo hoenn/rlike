@@ -44,6 +44,15 @@ public class PlayerAi extends CreatureAi {
 				creature.modifyAttackValue(-20000);
 			}
 		}
+		if(creature.protectedCount>0) {
+			creature.protectedCount--;
+			if(creature.protectedCount ==0) {
+				creature.notify("Your protection fades");
+				if(creature.color==Color.WHITE)
+					creature.color = Color.RED;
+				creature.setProtected(false);
+			}
+		}
 			
 	}
 	public void onLevelUp() {
