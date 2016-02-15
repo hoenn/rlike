@@ -187,6 +187,7 @@ public class Creature extends Entity {
 			fortitudeCount = 3;
 			this.color = Color.GREEN;
 		}
+		inventory.remove(item);
 	}
 	public void modifyXp(int amt) {
 		xp += amt;
