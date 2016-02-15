@@ -156,18 +156,21 @@ public class EntityFactory {
 		Item herb = new Item('f', AsciiPanel.green, "herb");
 		world.addAtEmptyLocation(herb, depth);
 		herb.modifyFoodValue(10);
+		herb.modifyHpValue(5);
 		return herb;
 	}
 	public Item newShortbread(int depth) {
 		Item sbread= new Item('=', AsciiPanel.white, "shortbread");
 		world.addAtEmptyLocation(sbread, depth);
 		sbread.modifyFoodValue(100);
+		sbread.modifyHpValue(25);
 		return sbread;
 	}
 	public Item newCaveCheese(int depth) {
 		Item cCheese = new Item('c', AsciiPanel.yellow, "moldy cave cheese");
 		world.addAtEmptyLocation(cCheese, depth);
 		cCheese.modifyFoodValue(50);
+		cCheese.modifyHpValue(15);
 		return cCheese;
 	}
 	
