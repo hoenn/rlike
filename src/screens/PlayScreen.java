@@ -75,8 +75,6 @@ public class PlayScreen implements Screen {
 	        for (int i = 0; i < world.width() * world.height() / 40; i++){
 	            if(i%2==0)
 	            	factory.newHerb(z);
-	    	    factory.newEnchantedSword(z);
-
 	            
 	            factory.newRock(z);
 	        }
@@ -183,6 +181,7 @@ public class PlayScreen implements Screen {
 	
 				case KeyEvent.VK_M: return new MessagesScreen(messageHistory, this);
 				case KeyEvent.VK_H: return new HelpScreen(this);
+				case KeyEvent.VK_T: return new TomeScreen(this, player.inventory());
 				case KeyEvent.VK_D: subScreen = new DropScreen(player); break;
 				case KeyEvent.VK_E: subScreen = new EatScreen(player); break;
 				case KeyEvent.VK_W: subScreen = new EquipScreen(player); break; 

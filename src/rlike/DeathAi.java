@@ -29,11 +29,7 @@ public class DeathAi extends CreatureAi {
 		this.player = player;
 		this.worldDepth = depth;
 		this.factory = factory;
-		if(player.z<2) {
-			player.notify("Your vision goes black");
-			sendPlayerMessage("I wanted to see your struggle firsthand");
-			player.teleport(this.creature.x, this.creature.y+1, this.creature.z);
-		}
+
 	}
 
 	public void onUpdate(){
