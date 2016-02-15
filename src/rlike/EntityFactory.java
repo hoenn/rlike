@@ -18,7 +18,7 @@ public class EntityFactory {
 	}
 	//Player
 	public Creature newPlayer(List<String> messages){
-		Creature player = new Creature(world, "hero", (char)3, AsciiPanel.brightRed, 10990, 9, 3, 9);
+		Creature player = new Creature(world, "hero", (char)3, AsciiPanel.brightRed, 100, 9, 3, 9);
 		world.addAtEmptyLocation(player, 0);
 		new PlayerAi(player, messages, fov);
 		return player;
@@ -183,17 +183,17 @@ public class EntityFactory {
 		return shovel;
 	}
 	public Item newVolumeOne(int depth){
-        Item item = new Item((char)240, AsciiPanel.brightWhite, "mysterious book: Volume 1");
+        Item item = new Item((char)240, AsciiPanel.brightWhite, "Maginomicon: Volume 1");
         world.addAtEmptyLocation(item, depth);
         return item;
     }
 	public Item newVolumeTwo(int depth){
-        Item item = new Item((char)240, ExtraColors.wheat, "mysterious book: Volume 2");
+        Item item = new Item((char)240, ExtraColors.wheat, "Maginomicon: Volume 2");
         world.addAtEmptyLocation(item, depth);
         return item;
     }
 	public Item newVolumeThree(int depth){
-        Item item = new Item((char)240, ExtraColors.lightCoral, "mysterious book: Volume 3");
+        Item item = new Item((char)240, ExtraColors.lightCoral, "Maginomicon: Volume 3");
         world.addAtEmptyLocation(item, depth);
         return item;
     }
