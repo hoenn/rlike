@@ -22,14 +22,10 @@ public class EatScreen extends InventoryBasedScreen {
         String sign = "";
         if(item.foodValue()>0)
         	sign="+";
-        else
-        	sign="-";
         
         String hpSign = "";
         if(item.hpValue()>0)
         	hpSign="+";
-        else
-        	hpSign="-";
 
         player.notify("You eat the "+item.name()+". "+sign+item.foodValue()+" food "+ hpSign+item.hpValue()+" hp");
         return null;

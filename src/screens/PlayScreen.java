@@ -167,54 +167,57 @@ public class PlayScreen implements Screen {
 	
 	@Override
 	public Screen respondToUserInput(KeyEvent key) {
-		int level = player.level();
-		if (subScreen != null) {
-			 
-	         subScreen = subScreen.respondToUserInput(key);
-	    }
-		else
-			switch (key.getKeyCode()){
-			case KeyEvent.VK_LEFT: player.moveBy(-1, 0, 0); break;
-			case KeyEvent.VK_RIGHT: player.moveBy( 1, 0, 0); break;
-			case KeyEvent.VK_UP: player.moveBy( 0,-1, 0); break;
-			case KeyEvent.VK_DOWN: player.moveBy( 0, 1, 0); break;
-
-			case KeyEvent.VK_M: return new MessagesScreen(messageHistory, this);
-			case KeyEvent.VK_H: return new HelpScreen(this);
-			case KeyEvent.VK_D: subScreen = new DropScreen(player); break;
-			case KeyEvent.VK_E: subScreen = new EatScreen(player); break;
-			case KeyEvent.VK_W: subScreen = new EquipScreen(player); break; 
-			case KeyEvent.VK_L: subScreen = new LookScreen(player, "Look", player.x-getScrollX(), player.y-getScrollY()); break;
-			case KeyEvent.VK_X: subScreen = new InventoryInfoScreen(player); break;
-		}
-		//Special handling for keys that don't have static KeyEvents
-		switch (key.getKeyChar()){
-	        case 'g': player.pickUp(); break;
-	        case '<':
-	            if (userIsTryingToExit())
-	             return userExits();
-	            else
-	             player.moveBy( 0, 0, -1); 
-	            break;
-	        case '>': player.moveBy( 0, 0, 1); break;
-        
-		}
-		if(player.level()>level){
-			subScreen = new LevelUpScreen(player, player.level()-level);
-		}
-		//Pressing shift alone won't skip turn
-		if(key.getKeyCode() != KeyEvent.VK_SHIFT)
-		{
-			if(subScreen == null && !safeReturn){
-				world.update();
+		if(player.hp()>1) {
+			int level = player.level();
+			if (subScreen != null) {
+				 
+		         subScreen = subScreen.respondToUserInput(key);
+		    }
+			else
+				switch (key.getKeyCode()){
+				case KeyEvent.VK_LEFT: player.moveBy(-1, 0, 0); break;
+				case KeyEvent.VK_RIGHT: player.moveBy( 1, 0, 0); break;
+				case KeyEvent.VK_UP: player.moveBy( 0,-1, 0); break;
+				case KeyEvent.VK_DOWN: player.moveBy( 0, 1, 0); break;
+	
+				case KeyEvent.VK_M: return new MessagesScreen(messageHistory, this);
+				case KeyEvent.VK_H: return new HelpScreen(this);
+				case KeyEvent.VK_D: subScreen = new DropScreen(player); break;
+				case KeyEvent.VK_E: subScreen = new EatScreen(player); break;
+				case KeyEvent.VK_W: subScreen = new EquipScreen(player); break; 
+				case KeyEvent.VK_L: subScreen = new LookScreen(player, "Look", player.x-getScrollX(), player.y-getScrollY()); break;
+				case KeyEvent.VK_X: subScreen = new InventoryInfoScreen(player); break;
 			}
-			else if(safeReturn) {
-				safeReturn = false;
+			//Special handling for keys that don't have static KeyEvents
+			switch (key.getKeyChar()){
+		        case 'g': player.pickUp(); break;
+		        case '<':
+		            if (userIsTryingToExit())
+		             return userExits();
+		            else
+		             player.moveBy( 0, 0, -1); 
+		            break;
+		        case '>': player.moveBy( 0, 0, 1); break;
+	        
 			}
-			
-			if (player.hp() < 1)
-			    return new LoseScreen();
-			
+			if(player.level()>level){
+				subScreen = new LevelUpScreen(player, player.level()-level);
+			}
+			//Pressing shift alone won't skip turn
+			if(key.getKeyCode() != KeyEvent.VK_SHIFT)
+			{
+				if(subScreen == null && !safeReturn){
+					world.update();
+				}
+				else if(safeReturn) {
+					safeReturn = false;
+				}
+				
+						
+			}
+		}
+		else {
+			return new LoseScreen();
 		}
 		return this;
 	}

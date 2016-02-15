@@ -6,6 +6,7 @@ public class DeathAi extends CreatureAi {
 	private Creature player;
 	private EntityFactory factory;
 	private int worldDepth;
+	private boolean hasBeenHit = false;
 	private String[] messages = {
 			"The monsters below grow impatient",
 			"The walls are brittle.",
@@ -26,9 +27,22 @@ public class DeathAi extends CreatureAi {
 		this.player = player;
 		this.worldDepth = depth;
 		this.factory = factory;
+		if(player.z<2) {
+			player.notify("Your vision goes black");
+			sendPlayerMessage("I wanted to see your struggle firsthand");
+			player.teleport(this.creature.x, this.creature.y+1, this.creature.z);
+		}
 	}
 
 	public void onUpdate(){
+		//If hit, retaliate
+		if(creature.hp()<creature.maxHp() && !hasBeenHit) {
+			sendPlayerMessage("You fool. To think you could face the god of death");
+			player.modifyHp(-1000);
+		}
+		else if(creature.hp() < creature.maxHp() && hasBeenHit) {
+			sendPlayerMessage("What sorcery is this?!");
+		}
 		if(Math.random() < 0.003) {
 			sendPlayerRandomMessage();	
 		}
@@ -66,7 +80,7 @@ public class DeathAi extends CreatureAi {
 						break;
 				case 2://Spawn bats around player
 						player.notify("A flurry of wings flap rapidly around you");
-						sendPlayerMessage("From my friend Dracul");
+						sendPlayerMessage("My dear Dracul sends his regards");
 						player.modifyHp(-15);
 						List<Point> surroundingTiles1 = player.getSurroundingTiles();
 						for(Point p: surroundingTiles1) {
