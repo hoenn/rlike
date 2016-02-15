@@ -41,7 +41,7 @@ public class PlayerAi extends CreatureAi {
 			if(creature.godModeCount ==0) {
 				creature.notify("Your blessing fades. Your regular strength returns");
 				creature.color = Color.RED;
-				creature.modifyAttackValue(-10000);
+				creature.modifyAttackValue(-20000);
 			}
 		}
 			

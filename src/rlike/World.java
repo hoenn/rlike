@@ -6,7 +6,6 @@ import java.util.List;
 
 public class World {
 	private Tile[][][] tiles;
-	
 	private Item[][][] items;
 	public Item item(int x, int y, int z){
 	    return items[x][y][z];
@@ -20,6 +19,9 @@ public class World {
 
 	private int depth;
 	public int depth() { return depth; }
+	
+	private Point exit;
+	public Point exit() { return exit; }
 	
 	private List<Creature> creatures;
 	
@@ -71,6 +73,7 @@ public class World {
 	public void dig(int x, int y, int z) {
 		if (tile(x, y, z).isDiggable())
 			tiles[x][y][z] = Tile.FLOOR;
+		exit = new Point(x,y,z);
 	}
 	public Point getEmptyLocation(int z) {
 		int x;
@@ -109,14 +112,6 @@ public class World {
 			creature.modifyHp(-100);
 			
 	}
-	public void forceAddAtLocation(Creature creature, int x, int y, int z) {
-		if(creature(x,y,z)!=null)
-			creature(x,y,z).modifyHp(-10000);
-		creature.x = x;
-		creature.y = y; 
-		creature.z = z;
-		creatures.add(creature);
-	}
 	public void addAtEmptyLocation(Item item, int depth) {
 	    int x;
 	    int y;
@@ -129,9 +124,25 @@ public class World {
 	    
 	    items[x][y][depth] = item;
 	}
-	public void addExitStairs(int x, int y) {
-        tiles[x][y][0] = Tile.STAIRS_UP;	    
+	public void addCreatureAtExit(Creature creature) {
+		creature.x = exit.x;
+		creature.y = exit.y;
+		creature.z = exit.z;
+		creatures.add(creature);
 	}
+	public void addExitStairs() {
+        int x = -1;
+        int y = -1;
+    
+        do {
+            x = (int)(Math.random() * width);
+            y = (int)(Math.random() * height);
+        }
+        while (tiles[x][y][0] != Tile.FLOOR);
+    
+        tiles[x][y][0] = Tile.STAIRS_UP;
+        exit = new Point(x,y,0);
+    }
 	public void remove(int x, int y, int z) {
 	    items[x][y][z] = null;
 	}

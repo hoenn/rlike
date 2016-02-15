@@ -171,8 +171,8 @@ public class Creature extends Entity {
 		String name = item.name;
 		if(name.contains("Volume 1")) {
 			godMode = true;
-			modifyAttackValue(10000);
-			godModeCount = 5;
+			modifyAttackValue(20000);
+			godModeCount = 10;
 			this.color = Color.YELLOW;
 		} else if (name.contains("Volume 2")) {
 			protection = true;
@@ -188,13 +188,12 @@ public class Creature extends Entity {
 
 		notify("You %s %d xp.", amt < 0 ? "lost" : "gained", amt);
 
-		if (xp > xpToLevel) {
+		while (xp > xpToLevel) {
 			level++;
 			xpToLevel = (int) ((10 * level) / 2);
 			modifyHp(maxHp);
-			doAction("advance to level %d", level);
 			ai.onLevelUp();
-			xp = 0;
+			xp-= xpToLevel;
 		}
 	}
 

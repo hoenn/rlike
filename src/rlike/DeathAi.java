@@ -39,9 +39,7 @@ public class DeathAi extends CreatureAi {
 	public void onUpdate(){
 		if(vulnerable && hasBeenHit && hasBeenATurn) {
 			if(player.isGodMode()) {
-				player.attack(this.creature);
-				player.notify("A yellow lion escapes your weapon and bites death at the neck");
-				player.attack(this.creature);
+				player.notify("A glowing yellow lion escapes your weapon and bites death at the neck");
 			}
 			else {
 				sendPlayerMessage("You've given me a moment too many to recuperate");

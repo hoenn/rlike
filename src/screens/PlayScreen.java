@@ -26,7 +26,6 @@ public class PlayScreen implements Screen {
 	private List<String> messages;
 	private List<String> messageHistory;
 	private FieldOfView fov;
-	private Point exit;
 	public static boolean safeReturn = true;
 	
 	public PlayScreen(){
@@ -98,6 +97,7 @@ public class PlayScreen implements Screen {
 		world = new WorldBuilder(160, 48, 5)
 					.makeDungeon()
 					.build();
+		world.addExitStairs();
 		fov = new FieldOfView(world);
 	}
 	
@@ -229,7 +229,7 @@ public class PlayScreen implements Screen {
 
 	private Screen userExits(){
 	    for (Item item : player.inventory().getItems()){
-	        if (item != null && item.name().equals("Volume 1"))
+	        if (item != null && item.name().contains("Dark Lord"))
 	            return new WinScreen();
 	    }
 	    return new LoseScreen();
