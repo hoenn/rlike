@@ -39,13 +39,13 @@ public class EntityFactory {
 		
 	}
 	public Creature newBat(int depth){
-	    Creature bat = new Creature(world, "bat", 'b', AsciiPanel.yellow, 15, 15, 0, 5);
+	    Creature bat = new Creature(world, "bat", 'b', AsciiPanel.yellow, 15, 10, 0, 5);
 	    world.addAtEmptyLocation(bat, depth);
 	    new BatAi(bat);
 	    return bat;
 	}
 	public Creature newBat(int x, int y, int depth) {
-		Creature bat = new Creature(world, "bat", 'b', AsciiPanel.yellow, 15, 15, 0, 5);
+		Creature bat = new Creature(world, "bat", 'b', AsciiPanel.yellow, 15, 10, 0, 5);
 	    world.addAtEmptyLocation(bat, x, y, depth);
 	    new BatAi(bat);
 	    return bat;
@@ -58,7 +58,7 @@ public class EntityFactory {
 		return rat;
 	}
 	public Creature newTrogg(int depth) {
-		Creature trogg = new Creature(world, "trogg", 'g', AsciiPanel.cyan, 10, 25, 5, 15);
+		Creature trogg = new Creature(world, "trogg", 'g', AsciiPanel.cyan, 10, 20, 0, 15);
 		trogg.equip(newRandomArmor(depth));
 		trogg.equip(newRandomWeapon(depth));
 		world.addAtEmptyLocation(trogg, depth);

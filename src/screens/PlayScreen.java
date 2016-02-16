@@ -51,7 +51,7 @@ public class PlayScreen implements Screen {
 			}
 			
 			if(z>0) {
-				for(int i =0; i<5; i++) {
+				for(int i =0; i<10; i++) {
 					factory.newGiantRat(z, player);
 				}
 			}
@@ -218,7 +218,7 @@ public class PlayScreen implements Screen {
 			}
 		}
 		else {
-			return new LoseScreen();
+			return new MessagesScreen(messageHistory, new LoseScreen());
 		}
 		return this;
 	}

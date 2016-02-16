@@ -194,13 +194,15 @@ public class Creature extends Entity {
 
 		notify("You %s %d xp.", amt < 0 ? "lost" : "gained", amt);
 
-		while (xp > xpToLevel) {
+		while (xp >= xpToLevel) {
 			level++;
+			xp -= xpToLevel;
 			xpToLevel = (int) ((10 * level) / 2);
 			modifyHp(maxHp);
 			ai.onLevelUp();
-			xp-= xpToLevel;
+			
 		}
+
 	}
 
 	public void gainXp(Creature other) {
