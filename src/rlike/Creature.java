@@ -234,7 +234,7 @@ public class Creature extends Entity {
 	}
 
 	public boolean canSee(int wx, int wy, int wz) {
-		return ai.canSee(wx, wy, wz);
+		return (world.creature(wx, wy, wz)!=null && world.creature(wx, wy, wz).glyph==(char)234)|| ai.canSee(wx, wy, wz);
 	}
 
 	public Tile realTile(int wx, int wy, int wz) {
