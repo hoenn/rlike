@@ -47,6 +47,18 @@ public class DeathAi extends CreatureAi {
 		else {
 			//If hit, retaliate
 			if(creature.hp()<creature.maxHp() && !hasBeenHit) {
+				boolean playerNear = false;
+				for(Point p: creature.getSurroundingTiles())
+					if(creature.creature(p.x, p.y, 0)!=null&&creature.creature(p.x, p.y, 0).isPlayer())
+						playerNear = true;
+					
+
+				if(playerNear == false)
+				{
+					hasBeenHit = false;
+					creature.modifyHp(creature.maxHp());
+					return;
+				}
 				player.notify("Death takes a vicious swing with his scythe");
 				sendPlayerMessage("You fool. To think you could face the god of death");
 				player.modifyHp(-1000);
