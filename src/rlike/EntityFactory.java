@@ -23,6 +23,9 @@ public class EntityFactory {
 				AsciiPanel.brightRed, 100, 9, 3, 9);
 		world.addAtEmptyLocation(player, 0);
 		new PlayerAi(player, messages, fov);
+		player.inventory().add(newVolumeOne(0));
+		player.inventory().add(newVolumeTwo(0));
+		player.inventory().add(newVolumeThree(0));
 		return player;
 	}
 

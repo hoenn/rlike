@@ -193,8 +193,11 @@ public class PlayScreen implements Screen {
 					return new MessagesScreen(messageHistory, this);
 				case KeyEvent.VK_H:
 					return new HelpScreen(this);
-				case KeyEvent.VK_T:
-					return new TomeScreen(this, player.inventory());
+				case KeyEvent.VK_R:
+					return new ReadScreen(this, player.inventory());
+				case KeyEvent.VK_C:
+					subScreen = new CastScreen(player);
+					break;
 				case KeyEvent.VK_D:
 					subScreen = new DropScreen(player);
 					break;
@@ -203,10 +206,7 @@ public class PlayScreen implements Screen {
 					break;
 				case KeyEvent.VK_W:
 					subScreen = new EquipScreen(player);
-					break;
-				case KeyEvent.VK_R:
-					subScreen = new ReadScreen(player);
-					break;
+					break;				
 				case KeyEvent.VK_L:
 					subScreen = new LookScreen(player, "Look",
 							player.x - getScrollX(), player.y - getScrollY());
