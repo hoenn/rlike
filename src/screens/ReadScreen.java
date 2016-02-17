@@ -36,39 +36,38 @@ public class ReadScreen implements Screen
 							 "shan xuia'ftft iata huftx ts'angsh su thalsia'a sha Daash Gug't tuiaft ang saka",
 							 "ftaa'a r'un shut s'aathha'uiat giangaun. F'aa as ftats.                        "};
 
-	private List<String> master;
+	private List<String> book;
 	
 	public ReadScreen(Screen prev, Inventory i) {
 		this.prev = prev;
 		this.inventory = i;
 		
 		topLine = 0;
-		master = new ArrayList<String>();
-		createMaster();
+		book = new ArrayList<String>();
+		createBook();
 	}
 	public void displayOutput(AsciiPanel terminal)
 	{
 		terminal.clear();
-		terminal.write("READ", 0, 0, AsciiPanel.brightGreen);
 		for(int i = 0; i < 22; i++) {
-			if(topLine+i<master.size())
-				terminal.write(master.get(topLine+i), 0, i);
+			if(topLine+i<book.size())
+				terminal.write(book.get(topLine+i), 0, i);
 		}
 		
 		terminal.writeCenter(" Press Arrow Keys To Scroll", 23, ExtraColors.slateGray);
 	}
-	public void createMaster() {
+	public void createBook() {
 		if(inventory.hasItem("Maginomicon: Volume 1")) {
 			for(String s: vol1)
-				master.add(s);
+				book.add(s);
 		}
 		if(inventory.hasItem("Maginomicon: Volume 2")) {
 			for(String s: vol2)
-				master.add(s);
+				book.add(s);
 		}
 		if(inventory.hasItem("Maginomicon: Volume 3")) {
 			for(String s: vol3) 
-				master.add(s);
+				book.add(s);
 		}
 		
 			
@@ -77,7 +76,7 @@ public class ReadScreen implements Screen
 	{
 		switch (key.getKeyCode()){
 			case KeyEvent.VK_UP: if(topLine>0)topLine--; break;
-			case KeyEvent.VK_DOWN: if(topLine<master.size()-22)topLine++; break;
+			case KeyEvent.VK_DOWN: if(topLine<book.size()-22)topLine++; break;
 			case KeyEvent.VK_ESCAPE: return prev;
 		}
 		return this;
