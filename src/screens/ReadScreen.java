@@ -37,6 +37,7 @@ public class ReadScreen implements Screen
 							 "ftaa'a r'un shut s'aathha'uiat giangaun. F'aa as ftats.                        "};
 
 	private List<String> master;
+	
 	public ReadScreen(Screen prev, Inventory i) {
 		this.prev = prev;
 		this.inventory = i;
