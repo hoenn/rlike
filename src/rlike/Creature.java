@@ -167,7 +167,7 @@ public class Creature extends Entity {
 		this.maxFood = 1000;
 		this.food = 750;
 		this.level = 1;
-		this.xpToLevel = (int) ((10 * level) / 2);
+		this.xpToLevel = (int) ((15 * level) / 2);
 		this.xp = (int) (Math.random() * (xpToLevel / 2));
 
 	}
@@ -197,8 +197,8 @@ public class Creature extends Entity {
 		while (xp >= xpToLevel) {
 			level++;
 			xp -= xpToLevel;
-			xpToLevel = (int) ((10 * level) / 2);
-			modifyHp(maxHp);
+			xpToLevel = (int) ((12 * level) / 2);
+			modifyHp(maxHp/2);
 			ai.onLevelUp();
 			
 		}
@@ -206,7 +206,7 @@ public class Creature extends Entity {
 	}
 
 	public void gainXp(Creature other) {
-		modifyXp((int) (other.xp + (other.defenseValue + other.attackValue) / 2));
+		modifyXp((int) (other.xp + (other.defenseValue + other.attackValue) / 2)/2);
 	}
 
 	public void pickUp() {
@@ -337,7 +337,7 @@ public class Creature extends Entity {
 	}
 
 	public void attack(Creature other) {
-		int amount = Math.max(0, attackValue() - other.defenseValue());
+		int amount = Math.max(1, attackValue() - (2*other.defenseValue()/3));
 
 		amount = (int) (Math.random() * amount) + amount / 4;
 
@@ -358,11 +358,50 @@ public class Creature extends Entity {
 			world.remove(this);
 		}
 	}
+	public void throwItem(Item item, int wx, int wy, int wz) {
+        Point end = new Point(x, y, 0);
+    
+        for (Point p : new Line(x, y, wx, wy)){
+            if (!realTile(p.x, p.y, z).isGround())
+                break;
+            end = p;
+        }
+    
+        wx = end.x;
+        wy = end.y;
+    
+        Creature c = creature(wx, wy, wz);
+        
+        unequip(item);
+
+        if (c != null)
+            throwAttack(item, c);
+        else
+            doAction("throw a %s", item.name());
+    
+        inventory.remove(item);
+        world.addAtEmptySpace(item, wx, wy, wz);
+    }
+	private void throwAttack(Item item, Creature other) {
+        modifyFood(-10);
+    
+        int amount = Math.max(1, item.thrownAttackValue() - (2*other.defenseValue()/3));
+
+		amount = (int) (Math.random() * amount) + amount / 4;
+    
+        doAction("throw a %s at the %s dealing %d damage", item.name(), other.name, amount);
+    
+        other.modifyHp(-amount);
+    
+        if (other.hp < 1)
+            gainXp(other);
+    }
 
 	private void leaveCorpse() {
 		Item corpse = new Item('%', color, name + " corpse");
 		corpse.modifyFoodValue(maxHp * 2);
 		corpse.modifyHpValue(maxHp/2);
+		corpse.modifyThrownAttackValue(5);
 		world.addAtEmptySpace(corpse, x, y, z);
 		for(Item item: inventory.getItems()) {
 			if(item!=null)

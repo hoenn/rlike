@@ -35,6 +35,14 @@ public class Item extends Entity {
 	public void modifyDefenseValue(int amount) {
 		defenseValue += amount;
 	}
+	
+	private int thrownAttackValue;
+	public int thrownAttackValue() {
+		return thrownAttackValue;
+	}
+	public void modifyThrownAttackValue(int amt) {
+		thrownAttackValue+=amt;
+	}
 
 	public Item(char glyph, Color color, String name) {
 		super(glyph, color, name);
@@ -50,6 +58,8 @@ public class Item extends Entity {
 
 			if (defenseValue != 0)
 				info += "   defense:" + defenseValue;
+			if(thrownAttackValue != 0)
+				info+=  "   thrown:"+thrownAttackValue;
 
 			if (foodValue != 0)
 				info += "   food:" + foodValue;

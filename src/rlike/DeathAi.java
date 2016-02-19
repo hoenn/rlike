@@ -6,9 +6,12 @@ public class DeathAi extends CreatureAi {
 	private Creature player;
 	private EntityFactory factory;
 	private int worldDepth;
+	private World world;
+	//Scripting variables
 	private boolean hasBeenHit = false;
 	private boolean hasBeenATurn = false;
 	private boolean vulnerable = false;
+	
 	private String[] messages = {
 			"The monsters below grow impatient",
 			"The walls are brittle.",
@@ -22,13 +25,13 @@ public class DeathAi extends CreatureAi {
 			"Find me on the floor from which you came",
 			"I am at the height of the dungeon",
 			"I await you",
-			"As you wander the dungeon grows stronger"
 	};
-	public DeathAi(Creature creature, Creature player, int depth, EntityFactory factory) {
+	public DeathAi(Creature creature, World world, Creature player, int depth, EntityFactory factory) {
 		super(creature);
 		this.player = player;
 		this.worldDepth = depth;
 		this.factory = factory;
+		this.world = world;
 
 	}
 
@@ -90,9 +93,15 @@ public class DeathAi extends CreatureAi {
 		}
 
 		if(Math.random() < 0.003) {
-			sendPlayerRandomMessage();	
+			if(Math.random()<0.5) {
+				sendPlayerRandomMessage();
+			} else {
+				giveXpToAllMonsters();
+				sendPlayerMessage("As you wander the dungeon grows stronger");
+			}
+			
 		}
-		else if(Math.random() < 0.0005 && player.z>0) {
+		else if(Math.random() < 0.001 && player.z>0) {
 			switch((int)(Math.random()*5)) {
 				case 0: //Teleport player vertically
 						if(player.z>0) {
@@ -150,6 +159,11 @@ public class DeathAi extends CreatureAi {
 				
 				
 			}			
+		}
+	}
+	public void giveXpToAllMonsters() {
+		for(Creature creature: world.getCreatures()) {
+			creature.modifyXp(3);
 		}
 	}
 	public void sendPlayerRandomMessage() {

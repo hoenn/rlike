@@ -11,6 +11,7 @@ public class CreatureAi {
 	}
 	
 	public boolean canSee(int wx, int wy, int wz) {
+		
         if (creature.z != wz)
             return false;
     
@@ -67,6 +68,18 @@ public class CreatureAi {
 		List<Creature> nearby = creature.nearbyCreaturesInSight();
 		if(nearby.size()>0)
 			return nearby.get((int)(Math.random()*nearby.size()));
+		else 
+			return null;
+	}
+	public Creature seekTargetThatIsNot(Creature c) {
+		List<Creature> nearby = creature.nearbyCreaturesInSight();
+		if(nearby.size()>0) {
+			int i =(int)(Math.random()*nearby.size());
+			if(nearby.get(i).glyph!=c.glyph)
+				return nearby.get(i);
+			else
+				return null;
+		}
 		else 
 			return null;
 	}

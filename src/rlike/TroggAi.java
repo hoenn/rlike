@@ -10,6 +10,10 @@ public class TroggAi extends CreatureAi {
 		{
 			wander();			
 			target = seekTarget();
+			if(target!=null && target.glyph == creature.glyph)
+			{
+				target = null;
+			}
 		}
 		else {
 			//Check if location is visible and creature isn't dead
@@ -27,6 +31,7 @@ public class TroggAi extends CreatureAi {
 		}
 	}
 	public boolean canPickUp() {
-		return super.canPickUp() && creature.item(creature.x, creature.y, creature.z).name.contains("corpse");
+		return super.canPickUp() && (creature.item(creature.x, creature.y, creature.z).name.contains("corpse")
+				||creature.item(creature.x, creature.y, creature.z).name.contains("Maginomicon"));
 	}
 }

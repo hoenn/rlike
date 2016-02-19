@@ -45,23 +45,28 @@ public class PlayScreen implements Screen {
 
 		for (int z = 0; z < world.depth(); z++) {
 
-			for (int i = 0; i < 8; i++) {
+			for (int i = 0; i < 10; i++) {
 				factory.newFungus(z);
 			}
 
 			if (z > 0) {
-				for (int i = 0; i < 10; i++) {
+				for (int i = 0; i < 15; i++) {
 					factory.newGiantRat(z, player);
 				}
 			}
-			for (int i = 0; i < 20; i++) {
+			for (int i = 0; i < 30; i++) {
 				factory.newBat(z);
 
 			}
 		}
 		factory.newTrogg(world.depth() - 3);
+		factory.newTrogg(world.depth() - 3);
+		factory.newTrogg(world.depth() - 3);
 		factory.newTrogg(world.depth() - 2);
 		factory.newTrogg(world.depth() - 2);
+		factory.newTrogg(world.depth() - 2);
+		factory.newTrogg(world.depth() - 1);
+		factory.newTrogg(world.depth() - 1);
 		factory.newTrogg(world.depth() - 1);
 		factory.newTrogg(world.depth() - 1);
 		factory.newTrogg(world.depth() - 1);
@@ -75,16 +80,15 @@ public class PlayScreen implements Screen {
 			for (int i = 0; i < world.width() * world.height() / 40; i++) {
 				if (i % 2 == 0)
 					factory.newHerb(z);
-
 				factory.newRock(z);
+
 			}
 			
 			for(int i = 0; i <2; i++) {
 				factory.newRandomWeapon(z);
 				factory.newRandomArmor(z);
+				factory.newKnife(z);
 			}
-			
-
 		}
 
 		factory.newEnchantedSword((int) (Math.random() * depth - 1));
@@ -92,7 +96,6 @@ public class PlayScreen implements Screen {
 		factory.newVolumeOne(depth - 3);
 		factory.newVolumeTwo(depth - 2);
 		factory.newVolumeThree(depth - 1);
-
 	}
 
 	private void createWorld() {
@@ -120,7 +123,7 @@ public class PlayScreen implements Screen {
 		displayMessages(terminal, messages);
 
 		String stats = String.format(
-				"hp %3d/%3d - food %3d/%3d - inventory%2d/%2d - xp %3d/%3d",
+				"hp %3d/%3d - food %3d/%3d - inventory %2d/%2d - xp %3d/%3d",
 				player.hp(), player.maxHp(), player.food(), player.maxFood(),
 				player.inventory().getSize(),
 				player.inventory().getItems().length, player.xp(),
@@ -201,6 +204,10 @@ public class PlayScreen implements Screen {
 					return new ReadScreen(this, player.inventory());
 				case KeyEvent.VK_C:
 					subScreen = new CastScreen(player);
+					break;
+				case KeyEvent.VK_T: subScreen = new ThrowScreen(player,
+									player.x-getScrollX(),
+									player.y-getScrollY());
 					break;
 				case KeyEvent.VK_D:
 					subScreen = new DropScreen(player);

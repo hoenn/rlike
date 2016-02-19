@@ -112,6 +112,9 @@ public class World {
 			creature.modifyHp(-100);
 			
 	}
+	public List<Creature> getCreatures() {
+		return creatures;
+	}
 	public void addAtEmptyLocation(Item item, int depth) {
 	    int x;
 	    int y;
