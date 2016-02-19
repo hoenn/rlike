@@ -37,8 +37,8 @@ public class HelpScreen implements Screen
 		terminal.write("'h' for help", 2, y++);
 		terminal.write("'m' for recent messages", 2, y++);
 		terminal.write("'x' to examine your items", 2, y++);
-		terminal.write("'r' to read and cast a tome. DESTROYS TOME", 2, y++);
-		terminal.write("'t' to take a look at your tomes", 2, y++);
+		terminal.write("'c' to cast a tome. DESTROYS TOME", 2, y++);
+		terminal.write("'r' to read your tomes", 2, y++);
 		terminal.write("'l' to look around", 2, y++);
 
 		terminal.write((char)234, 23, 20, ExtraColors.mediumOrchid);

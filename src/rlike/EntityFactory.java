@@ -23,9 +23,6 @@ public class EntityFactory {
 				AsciiPanel.brightRed, 100, 9, 3, 9);
 		world.addAtEmptyLocation(player, 0);
 		new PlayerAi(player, messages, fov);
-		player.inventory().add(newVolumeOne(0));
-		player.inventory().add(newVolumeTwo(0));
-		player.inventory().add(newVolumeThree(0));
 		return player;
 	}
 
@@ -73,8 +70,8 @@ public class EntityFactory {
 	}
 
 	public Creature newTrogg(int depth) {
-		Creature trogg = new Creature(world, "trogg", 'g', AsciiPanel.cyan, 10,
-				20, 0, 15);
+		Creature trogg = new Creature(world, "trogg", 'g', AsciiPanel.cyan, 15,
+				7, 0, 15);
 		trogg.equip(newRandomArmor(depth));
 		trogg.equip(newRandomWeapon(depth));
 		world.addAtEmptyLocation(trogg, depth);
@@ -106,7 +103,12 @@ public class EntityFactory {
 		shortSword.modifyAttackValue(7);
 		return shortSword;
 	}
-
+	public Item newPolearm(int depth) {
+		Item polearm = new Item('!', ExtraColors.lightCoral, "polearm");
+		world.addAtEmptyLocation(polearm, depth);
+		polearm.modifyAttackValue(10);
+		return polearm;
+	}
 	public Item newStaff(int depth) {
 		Item staff = new Item('!', ExtraColors.rosyBrown, "staff");
 		world.addAtEmptyLocation(staff, depth);
@@ -138,17 +140,22 @@ public class EntityFactory {
 	public Item newClothArmor(int depth) {
 		Item clothArmor = new Item('{', AsciiPanel.white, "cloth armor");
 		world.addAtEmptyLocation(clothArmor, depth);
-		clothArmor.modifyDefenseValue(3);
+		clothArmor.modifyDefenseValue(4);
 		return clothArmor;
 	}
 
 	public Item newLeatherArmor(int depth) {
-		Item leatherArmor = new Item('{', ExtraColors.olive, "light armor");
+		Item leatherArmor = new Item('{', ExtraColors.olive, "leather armor");
 		world.addAtEmptyLocation(leatherArmor, depth);
 		leatherArmor.modifyDefenseValue(8);
 		return leatherArmor;
 	}
-
+	public Item newScaleArmor(int depth) {
+		Item scaleArmor = new Item('{', AsciiPanel.magenta, "scale mail");
+		world.addAtEmptyLocation(scaleArmor, depth);
+		scaleArmor.modifyDefenseValue(12);
+		return scaleArmor;
+	}
 	public Item newHeavyArmor(int depth) {
 		Item heavyArmor = new Item('{', ExtraColors.slateGray, "chain mail");
 		world.addAtEmptyLocation(heavyArmor, depth);
@@ -172,13 +179,15 @@ public class EntityFactory {
 	}
 
 	public Item newRandomArmor(int depth) {
-		int i = (int) (Math.random() * 3);
+		int i = (int) (Math.random() * 4);
 		switch (i) {
 		case 0:
 			return newLeatherArmor(depth);
 		case 1:
 			return newHeavyArmor(depth);
 		case 2:
+			return newScaleArmor(depth);
+		case 3:
 			return newClothArmor(depth);
 		}
 		return null;
