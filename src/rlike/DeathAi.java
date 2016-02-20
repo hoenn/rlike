@@ -175,8 +175,8 @@ public class DeathAi extends CreatureAi {
 					creature.throwItem(rock, creature.x+1, creature.y+2,creature.z );
 				}
 				
-				
 			}
+			creature.setThrowBack(false);
 		}
 		
 	}

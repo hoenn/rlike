@@ -15,6 +15,9 @@ public class Creature extends Entity {
 	public boolean checkThrowBack() {
 		return throwBack;
 	}
+	public void setThrowBack(boolean b) {
+		throwBack = b;
+	}
 	
 	public int godModeCount = 0;
 	private boolean godMode = false;
