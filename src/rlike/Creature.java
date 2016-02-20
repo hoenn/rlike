@@ -11,6 +11,11 @@ public class Creature extends Entity {
 	public int y;
 	public int z;
 	
+	private boolean throwBack = false;
+	public boolean checkThrowBack() {
+		return throwBack;
+	}
+	
 	public int godModeCount = 0;
 	private boolean godMode = false;
 	public boolean isGodMode() {
@@ -374,10 +379,15 @@ public class Creature extends Entity {
         
         unequip(item);
 
-        if (c != null)
+        if (c != null) {
+        	if(item.name=="rock" && c.glyph == (char)234)
+        		c.throwBack = true;
             throwAttack(item, c);
-        else
-            doAction("throw a %s", item.name());
+        }
+        else {
+        	doAction("throw a %s", item.name());
+        }
+            
     
         inventory.remove(item);
         world.addAtEmptySpace(item, wx, wy, wz);

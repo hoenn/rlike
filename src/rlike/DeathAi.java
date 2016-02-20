@@ -12,6 +12,7 @@ public class DeathAi extends CreatureAi {
 	private boolean hasBeenATurn = false;
 	private boolean vulnerable = false;
 	
+	
 	private String[] messages = {
 			"The monsters below grow impatient",
 			"The walls are brittle.",
@@ -160,6 +161,24 @@ public class DeathAi extends CreatureAi {
 				
 			}			
 		}
+		
+		if(creature.checkThrowBack()) {
+			creature.pickUp();
+			if(creature.inventory().hasItem("rock")) {
+				Item rock =creature.inventory().get("rock");
+				
+				if(creature.canSee(player.x, player.y, player.z)) {
+					rock.modifyThrownAttackValue(10000);
+					creature.throwItem(rock, player.x, player.y, player.z);
+				}
+				else {
+					creature.throwItem(rock, creature.x+1, creature.y+2,creature.z );
+				}
+				
+				
+			}
+		}
+		
 	}
 	public void giveXpToAllMonsters() {
 		for(Creature creature: world.getCreatures()) {

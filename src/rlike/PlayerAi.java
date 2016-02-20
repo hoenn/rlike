@@ -32,7 +32,8 @@ public class PlayerAi extends CreatureAi {
 			creature.fortitudeCount--;	
 			if(creature.fortitudeCount == 0) {
 				creature.notify("Your fortitude depletes. You are restored to your regular constitution");
-				creature.color = Color.RED;
+				if(creature.color == Color.GREEN)
+					creature.color = Color.RED;
 				creature.setHp(creature.maxHp());
 			}
 		}

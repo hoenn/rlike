@@ -266,10 +266,7 @@ public class PlayScreen implements Screen {
 	}
 
 	private Screen userExits() {
-		for (Item item : player.inventory().getItems()) {
-			if (item != null && item.name().contains("Dark Lord"))
-				return new WinScreen();
-		}
-		return new LoseScreen();
+		return new WinScreen();
+	
 	}
 }
