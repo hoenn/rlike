@@ -1,5 +1,6 @@
 package screens;
 
+import asciiPanel.AsciiPanel;
 import rlike.Creature;
 import rlike.Item;
 import rlike.Line;
@@ -11,6 +12,7 @@ public class ThrowAtScreen extends TargettingBasedScreen {
     public ThrowAtScreen(Creature player, int sx, int sy, Item item) {
         super(player, "Throw " + item.name() + " at?", sx, sy);
         this.item = item;
+        this.lineColor = AsciiPanel.red;
     }
 
     public boolean isAcceptable(int x, int y) {

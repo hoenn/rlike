@@ -1,5 +1,6 @@
 package screens;
 
+import java.awt.Color;
 import java.awt.event.KeyEvent;
 
 import asciiPanel.AsciiPanel;
@@ -16,6 +17,7 @@ public class TargettingBasedScreen implements Screen
 	private int sy;
 	private int x;
 	private int y;
+	protected Color lineColor;
 
 	public TargettingBasedScreen(Creature player, String caption, int sx, int sy)
 	{
@@ -23,13 +25,14 @@ public class TargettingBasedScreen implements Screen
 		this.caption = caption;
 		this.sx = sx;
 		this.sy = sy;
+		lineColor = AsciiPanel.yellow;
 	}
 	public void displayOutput(AsciiPanel terminal) {
 	    for (Point p : new Line(sx, sy, sx + x, sy + y)){
 	        if (p.x < 0 || p.x >= 80 || p.y < 0 || p.y >= 24)
 	            continue;
 	        
-	        terminal.write('*', p.x, p.y, AsciiPanel.brightYellow);
+	        terminal.write('*', p.x, p.y, lineColor);
 	    }
 	    
 	    terminal.clear(' ', 0, 23, 80, 1);
