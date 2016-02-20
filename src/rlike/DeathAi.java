@@ -163,7 +163,8 @@ public class DeathAi extends CreatureAi {
 	}
 	public void giveXpToAllMonsters() {
 		for(Creature creature: world.getCreatures()) {
-			creature.modifyXp(3);
+			if(!creature.isPlayer())
+				creature.modifyXp(3);
 		}
 	}
 	public void sendPlayerRandomMessage() {

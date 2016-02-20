@@ -219,7 +219,7 @@ public class Creature extends Entity {
 		} else {
 			world.remove(x, y, z);
 			inventory.add(item);
-			doAction("pickup a %s", item.name());
+			doAction("obtain a %s", item.name());
 
 		}
 	}

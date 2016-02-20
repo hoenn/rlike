@@ -30,6 +30,8 @@ public class HelpScreen implements Screen
 
 
 		int y = 8;
+		terminal.write("'>' to go down stairs", 2, y++);
+		terminal.write("'<' to go up stairs", 2, y++);
 		terminal.write("'g' to pick up", 2, y++);
 		terminal.write("'d' to drop", 2, y++);
 		terminal.write("'e' to eat", 2, y++);
