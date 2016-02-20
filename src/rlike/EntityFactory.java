@@ -83,7 +83,7 @@ public class EntityFactory {
 	// Key Creature
 	public Creature newDeath(Creature player, int depth) {
 		Creature death = new Creature(world, "Dark Lord", (char) 234,
-				ExtraColors.mediumOrchid, 100000, 10000, 0, 10000);
+				ExtraColors.mediumOrchid, 100000, 10000, 0, 1000);
 		world.addCreatureAtExit(death);
 		new DeathAi(death, world, player, depth, this);
 		return death;
