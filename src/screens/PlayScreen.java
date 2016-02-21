@@ -91,8 +91,8 @@ public class PlayScreen implements Screen {
 			}
 		}
 
-		factory.newEnchantedSword((int) (Math.random() * depth - 1));
-		factory.newEnchantedArmor((int) (Math.random() * depth - 1));
+		factory.newEnchantedSword((int) (Math.random() * depth - 2)+1);
+		factory.newEnchantedArmor((int) (Math.random() * depth - 2)+1);
 		factory.newVolumeOne(depth - 3);
 		factory.newVolumeTwo(depth - 2);
 		factory.newVolumeThree(depth - 1);
