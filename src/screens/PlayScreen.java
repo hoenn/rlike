@@ -26,12 +26,14 @@ public class PlayScreen implements Screen {
 	private List<String> messageHistory;
 	private FieldOfView fov;
 	public static boolean safeReturn = true;
+	private int numberOfTurns = 0;
 
 	public PlayScreen() {
 		screenWidth = 80;
 		screenHeight = 23;
 		subScreen = null;
 		messages = new ArrayList<String>();
+		numberOfTurns = 0;
 		messageHistory = new ArrayList<String>();
 		createWorld();
 		EntityFactory entityFactory = new EntityFactory(world, fov);
@@ -249,13 +251,15 @@ public class PlayScreen implements Screen {
 			if (key.getKeyCode() != KeyEvent.VK_SHIFT) {
 				if (subScreen == null && !safeReturn) {
 					world.update();
+					numberOfTurns++;
+
 				} else if (safeReturn) {
 					safeReturn = false;
 				}
 
 			}
 		} else {
-			return new MessagesScreen(messageHistory, new LoseScreen());
+			return new MessagesScreen(messageHistory, new LoseScreen(numberOfTurns));
 		}
 		return this;
 	}
@@ -266,7 +270,7 @@ public class PlayScreen implements Screen {
 	}
 
 	private Screen userExits() {
-		return new WinScreen();
+		return new WinScreen(numberOfTurns);
 	
 	}
 }
