@@ -11,6 +11,8 @@ public class Creature extends Entity {
 	public int y;
 	public int z;
 	
+	public String causeOfDeath;
+	
 	private boolean throwBack = false;
 	public boolean checkThrowBack() {
 		return throwBack;
@@ -177,6 +179,7 @@ public class Creature extends Entity {
 		this.level = 1;
 		this.xpToLevel = (int) ((15 * level) / 2);
 		this.xp = (int) (Math.random() * (xpToLevel / 2));
+		causeOfDeath = "";
 
 	}
 	public void read(Item item) {
@@ -206,7 +209,7 @@ public class Creature extends Entity {
 			level++;
 			xp -= xpToLevel;
 			xpToLevel = (int) ((12 * level) / 2);
-			modifyHp(maxHp/2);
+			modifyHp(maxHp/2, "");
 			ai.onLevelUp();
 			
 		}
@@ -317,8 +320,8 @@ public class Creature extends Entity {
 			notify("You find yourself phased into another creature");
 			notify("In a violent fit the " + other.name + " explodes");
 			notify("You sustain major damage");
-			other.modifyHp(-500);
-			this.modifyHp(-50);
+			other.modifyHp(-500, "having another creature phase inside you");
+			this.modifyHp(-50, "phasing inside another creature");
 		}
 	}
 
@@ -351,12 +354,13 @@ public class Creature extends Entity {
 
 		doAction("attack the '%s' for %d damage", other.name, amount);
 
-		other.modifyHp(-amount);
+		other.modifyHp(-amount, "a "+ this.name+"'s vicious attacks");
 		if (other.hp < 1)
 			this.gainXp(other);
 	}
 
-	public void modifyHp(int amount) {
+	public void modifyHp(int amount, String causeOfDeath) {
+		this.causeOfDeath = causeOfDeath;
 		hp += amount;
 		if (fortitudeCount==0&& hp > maxHp)
 			hp = maxHp;
@@ -404,7 +408,7 @@ public class Creature extends Entity {
     
         doAction("throw a %s at the %s dealing %d damage", item.name(), other.name, amount);
     
-        other.modifyHp(-amount);
+        other.modifyHp(-amount, "a thrown "+item.name);
     
         if (other.hp < 1)
             gainXp(other);
@@ -428,16 +432,16 @@ public class Creature extends Entity {
 			maxFood = maxFood + food / 2;
 			food = maxFood;
 			notify("You've stretched your stomach It hurts so good");
-			modifyHp(-15);
+			modifyHp(-15, "overeating");
 		} else if (food < 1 && isPlayer()) {
-			modifyHp(-100);
+			modifyHp(-100,"starvation");
 		}
 	}
 
 	public void eat(Item item) {
 
 		modifyFood(item.foodValue());
-		modifyHp(item.hpValue());
+		modifyHp(item.hpValue(), "eating "+item.name+"s");
 		inventory.remove(item);
 		unequip(item);
 	}

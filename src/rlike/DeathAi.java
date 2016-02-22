@@ -45,7 +45,7 @@ public class DeathAi extends CreatureAi {
 				sendPlayerMessage("You've given me a moment too many to recuperate");
 				player.notify("You see a glowing black dagger enter your chest");
 				sendPlayerMessage("Your time to strike has passed and your soul is mine");
-				player.modifyHp(-1000000);
+				player.modifyHp(-1000000, "the dark lord's shadowy dagger");
 			}
 		}
 		else {
@@ -60,12 +60,12 @@ public class DeathAi extends CreatureAi {
 				if(playerNear == false)
 				{
 					hasBeenHit = false;
-					creature.modifyHp(creature.maxHp());
+					creature.modifyHp(creature.maxHp(), "");
 					return;
 				}
 				player.notify("Death takes a vicious swing with his scythe");
 				sendPlayerMessage("You fool. To think you could face the god of death");
-				player.modifyHp(-1000);
+				player.modifyHp(-1000, "the strength of a god");
 				hasBeenHit = true;
 			} //If the player survives try a spell
 			else if(creature.hp() < creature.maxHp() && hasBeenHit) {
@@ -74,7 +74,7 @@ public class DeathAi extends CreatureAi {
 					sendPlayerMessage("Feel my true power!");
 					player.notify("Death casts powerful shadow magic at you");
 					if(!player.hasProtection()) {
-						player.modifyHp(-10000);
+						player.modifyHp(-10000,"the dark lords vile magic");
 					}
 					else {
 						player.notify("You use your magical guard to reflect the spell");
@@ -102,7 +102,7 @@ public class DeathAi extends CreatureAi {
 			}
 			
 		}
-		else if(Math.random() < 0.001 && player.z>0) {
+		else if(Math.random() < 0.002 && player.z>0) {
 			switch((int)(Math.random()*5)) {
 				case 0: //Teleport player vertically
 						if(player.z>0) {
@@ -128,7 +128,7 @@ public class DeathAi extends CreatureAi {
 				case 1: //Sprout mushrooms around player
 						player.notify("You see mushrooms rapidly sprout at your feet");
 						sendPlayerMessage("Death and decay");
-						player.modifyHp(-15);
+						player.modifyHp(-15, "mushroom poisoning");
 						List<Point> surroundingTiles = player.getSurroundingTiles();
 						for(Point p: surroundingTiles) {
 							factory.newFungus(p.x, p.y, player.z);
@@ -137,7 +137,7 @@ public class DeathAi extends CreatureAi {
 				case 2://Spawn bats around player
 						player.notify("A flurry of wings flap rapidly around you");
 						sendPlayerMessage("My dear Dracul sends his regards");
-						player.modifyHp(-15);
+						player.modifyHp(-15, "a thousand tiny bat bites");
 						List<Point> surroundingTiles1 = player.getSurroundingTiles();
 						for(Point p: surroundingTiles1) {
 							factory.newBat(p.x, p.y, player.z);

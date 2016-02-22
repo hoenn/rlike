@@ -109,7 +109,7 @@ public class World {
 			creatures.add(creature);
 		}
 		else
-			creature.modifyHp(-100);
+			creature.modifyHp(-100, "the seams of the world");
 			
 	}
 	public List<Creature> getCreatures() {

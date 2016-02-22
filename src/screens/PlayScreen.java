@@ -93,8 +93,8 @@ public class PlayScreen implements Screen {
 			}
 		}
 
-		factory.newEnchantedSword((int) (Math.random() * depth - 2)+1);
-		factory.newEnchantedArmor((int) (Math.random() * depth - 2)+1);
+		factory.newEnchantedSword((int) (Math.random() * depth - 1)+1);
+		factory.newEnchantedArmor((int) (Math.random() * depth - 1)+1);
 		factory.newVolumeOne(depth - 3);
 		factory.newVolumeTwo(depth - 2);
 		factory.newVolumeThree(depth - 1);
@@ -259,7 +259,7 @@ public class PlayScreen implements Screen {
 
 			}
 		} else {
-			return new MessagesScreen(messageHistory, new LoseScreen(numberOfTurns));
+			return new MessagesScreen(messageHistory, new LoseScreen(numberOfTurns, player.causeOfDeath));
 		}
 		return this;
 	}
