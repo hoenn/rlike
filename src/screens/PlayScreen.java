@@ -261,7 +261,7 @@ public class PlayScreen implements Screen {
 
 			}
 		} else {
-			return new MessagesScreen(messageHistory, new LoseScreen(numberOfTurns, player.causeOfDeath));
+			return new MessagesScreen(messageHistory, new LoseScreen(numberOfTurns, player.causeOfDeath, player.stats));
 		}
 		return this;
 	}
@@ -272,7 +272,7 @@ public class PlayScreen implements Screen {
 	}
 
 	private Screen userExits() {
-		return new WinScreen(numberOfTurns);
+		return new WinScreen(numberOfTurns, player.stats);
 	
 	}
 }

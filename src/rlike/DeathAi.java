@@ -97,12 +97,14 @@ public class DeathAi extends CreatureAi {
 			if(Math.random()<0.5) {
 				sendPlayerRandomMessage();
 			} else {
+				player.stats.deathInterferences++;
 				giveXpToAllMonsters();
 				sendPlayerMessage("As you wander the dungeon grows stronger");
 			}
 			
 		}
 		else if(Math.random() < 0.002 && player.z>0) {
+			player.stats.deathInterferences++;
 			switch((int)(Math.random()*5)) {
 				case 0: //Teleport player vertically
 						if(player.z>0) {

@@ -11,6 +11,9 @@ public class Creature extends Entity {
 	public int y;
 	public int z;
 	
+	public Stats stats;
+
+	
 	public String causeOfDeath;
 	
 	private boolean throwBack = false;
@@ -179,6 +182,7 @@ public class Creature extends Entity {
 		this.level = 1;
 		this.xpToLevel = (int) ((15 * level) / 2);
 		this.xp = (int) (Math.random() * (xpToLevel / 2));
+		this.stats = new Stats();
 		causeOfDeath = "";
 
 	}
@@ -206,6 +210,7 @@ public class Creature extends Entity {
 		notify("You %s %d xp.", amt < 0 ? "lost" : "gained", amt);
 
 		while (xp >= xpToLevel) {
+			this.stats.levelUps++;
 			level++;
 			xp -= xpToLevel;
 			xpToLevel = (int) ((12 * level) / 2);
@@ -355,8 +360,11 @@ public class Creature extends Entity {
 		doAction("attack the '%s' for %d damage", other.name, amount);
 
 		other.modifyHp(-amount, "a "+ this.name+"'s vicious attacks");
-		if (other.hp < 1)
+		if (other.hp < 1) {
 			this.gainXp(other);
+			this.stats.kills++;
+		}
+			
 	}
 
 	public void modifyHp(int amount, String causeOfDeath) {
@@ -394,6 +402,7 @@ public class Creature extends Entity {
         else {
         	doAction("throw a %s", item.name());
         }
+        this.stats.itemsThrown++;
             
     
         inventory.remove(item);
@@ -442,6 +451,7 @@ public class Creature extends Entity {
 
 		modifyFood(item.foodValue());
 		modifyHp(item.hpValue(), "eating "+item.name+"s");
+		this.stats.thingsEaten++;
 		inventory.remove(item);
 		unequip(item);
 	}
@@ -449,6 +459,7 @@ public class Creature extends Entity {
 	public void dig(int wx, int wy, int wz) {
 		world.dig(wx, wy, wz);
 		doAction("dig");
+		this.stats.turnsSpentDigging++;
 		// If no shovel
 		if (weapon != null && weapon.name == "shovel")
 			modifyFood(-1);
