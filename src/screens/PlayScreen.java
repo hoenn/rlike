@@ -253,7 +253,6 @@ public class PlayScreen implements Screen {
 			if (key.getKeyCode() != KeyEvent.VK_SHIFT) {
 				if (subScreen == null && !safeReturn) {
 					world.update();
-					System.out.println(numberOfTurns);
 					numberOfTurns++;
 
 				} else if (safeReturn) {
