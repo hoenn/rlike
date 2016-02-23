@@ -64,7 +64,8 @@ public class EntityFactory {
 		Creature rat = new Creature(world, "giant rat", 'r', ExtraColors.darkBrown, 
 									25, 12, 5, 5);
 		world.addAtEmptyLocation(rat, depth);
-		rat.inventory().add(newCaveCheese(depth));
+		if(Math.random()>.40)
+			rat.inventory().add(newCaveCheese(depth));
 		new GiantRatAi(rat, player);
 		return rat;
 	}
@@ -228,7 +229,7 @@ public class EntityFactory {
 		Item sbread = new Item('=', AsciiPanel.white, "shortbread");
 		world.addAtEmptyLocation(sbread, depth);
 		sbread.modifyFoodValue(250);
-		sbread.modifyHpValue(25);
+		sbread.modifyHpValue(35);
 		return sbread;
 	}
 

@@ -17,7 +17,7 @@ public class LoseScreen implements Screen{
 		terminal.writeCenter("Cause of death...", 12, AsciiPanel.brightYellow);
 		terminal.writeCenter(causeOfDeath, 13, AsciiPanel.brightRed);
 		terminal.writeCenter("And it only took you..", 14, AsciiPanel.brightYellow);
-		terminal.writeCenter(String.format("10%d turns!", numberOfTurns), 15, AsciiPanel.brightRed);
+		terminal.writeCenter(String.format("%d turns!", numberOfTurns), 15, AsciiPanel.brightRed);
 		terminal.writeCenter(" Press Enter to Restart", 23, ExtraColors.slateGray);
 
 

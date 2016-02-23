@@ -47,31 +47,32 @@ public class PlayScreen implements Screen {
 
 		for (int z = 0; z < world.depth(); z++) {
 
-			for (int i = 0; i < 10; i++) {
+			for (int i = 0; i < 12; i++) {
 				factory.newFungus(z);
 			}
 
 			if (z > 0) {
-				for (int i = 0; i < 15; i++) {
+				for (int i = 0; i < 20; i++) {
 					factory.newGiantRat(z, player);
 				}
 			}
-			for (int i = 0; i < 30; i++) {
+			for (int i = 0; i < 33; i++) {
 				factory.newBat(z);
 
 			}
 		}
-		factory.newTrogg(world.depth() - 3);
-		factory.newTrogg(world.depth() - 3);
-		factory.newTrogg(world.depth() - 3);
-		factory.newTrogg(world.depth() - 2);
-		factory.newTrogg(world.depth() - 2);
-		factory.newTrogg(world.depth() - 2);
-		factory.newTrogg(world.depth() - 1);
-		factory.newTrogg(world.depth() - 1);
-		factory.newTrogg(world.depth() - 1);
-		factory.newTrogg(world.depth() - 1);
-		factory.newTrogg(world.depth() - 1);
+		for(int i =0; i<4; i++) {
+			factory.newTrogg(world.depth() - 3);
+		}
+		
+		for(int i = 0; i<5; i++) {
+			factory.newTrogg(world.depth() - 2);
+		}
+		
+		for(int i =0; i<6; i++){
+			factory.newTrogg(world.depth() - 1);
+		}
+		
 
 		factory.newDeath(player, world.depth());
 	}
@@ -91,6 +92,7 @@ public class PlayScreen implements Screen {
 				factory.newRandomArmor(z);
 				factory.newKnife(z);
 			}
+			factory.newShortbread(z);
 		}
 
 		factory.newEnchantedSword((int) (Math.random() * depth - 1)+1);
@@ -251,6 +253,7 @@ public class PlayScreen implements Screen {
 			if (key.getKeyCode() != KeyEvent.VK_SHIFT) {
 				if (subScreen == null && !safeReturn) {
 					world.update();
+					System.out.println(numberOfTurns);
 					numberOfTurns++;
 
 				} else if (safeReturn) {
