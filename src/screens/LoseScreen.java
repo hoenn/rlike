@@ -3,6 +3,7 @@ package screens;
 import java.awt.event.KeyEvent;
 
 import asciiPanel.AsciiPanel;
+import rlike.ExtraColors;
 
 public class LoseScreen implements Screen{
 	private int numberOfTurns;
@@ -17,10 +18,14 @@ public class LoseScreen implements Screen{
 		terminal.writeCenter(causeOfDeath, 13, AsciiPanel.brightRed);
 		terminal.writeCenter("And it only took you..", 14, AsciiPanel.brightYellow);
 		terminal.writeCenter(String.format("10%d turns!", numberOfTurns), 15, AsciiPanel.brightRed);
+		terminal.writeCenter(" Press Enter to Restart", 23, ExtraColors.slateGray);
+
 
 	}
 	@Override
 	public Screen respondToUserInput(KeyEvent key) {
+		if(key.getKeyCode() == KeyEvent.VK_ENTER)
+			return new StartScreen();
 		return this;
 	}
 	
