@@ -12,7 +12,8 @@ public class EatScreen extends InventoryBasedScreen {
     protected String getVerb() {
         return "eat";
     }
-
+    
+    //Any item that has health or food values can be eaten
     protected boolean isAcceptable(Item item) {
         return item.foodValue() != 0 || item.hpValue() !=0;
     }

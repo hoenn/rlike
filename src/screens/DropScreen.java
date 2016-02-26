@@ -12,7 +12,7 @@ public class DropScreen extends InventoryBasedScreen {
         return "drop";
     }
 	
-	//All items droppable
+	//All items are droppable
 	protected boolean isAcceptable(Item item) {
         return true;
     }

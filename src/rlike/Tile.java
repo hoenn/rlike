@@ -9,7 +9,7 @@ import asciiPanel.AsciiPanel;
 public enum Tile {
 	FLOOR((char)250, ExtraColors.mediumOrchid, "The dungeon floor"),
 	WALL((char)177, ExtraColors.mediumPurple, "Brittle brick walls"),
-	BOUNDS('x', AsciiPanel.brightBlack, "The abyss"), 
+	BOUNDS('x', AsciiPanel.brightBlack, "The dark abyss"), 
 	
 	STAIRS_DOWN('>', AsciiPanel.white, "Stairs down"), 
 	STAIRS_UP('<', AsciiPanel.white, "Stairs up"), 

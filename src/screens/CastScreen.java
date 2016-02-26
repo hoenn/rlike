@@ -14,6 +14,7 @@ public class CastScreen extends InventoryBasedScreen {
     }
 
     protected boolean isAcceptable(Item item) {
+    	//Only the three tomes can be cast
         return item.name().contains("Volume");
     }
 

@@ -8,6 +8,7 @@ public class TroggAi extends CreatureAi {
 	public void onUpdate() {
 		if (target==null)
 		{
+			//Walk and search for new target
 			wander();			
 			target = seekTarget();
 			if(target!=null && target.glyph == creature.glyph)
