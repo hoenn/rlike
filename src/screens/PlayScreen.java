@@ -127,7 +127,7 @@ public class PlayScreen implements Screen {
 		displayMessages(terminal, messages);
 
 		String stats = String.format(
-				"hp %3d/%3d - food %3d/%3d - inventory %2d/%2d - xp %3d/%3d",
+				"hp %3d/%3d - food %3d/%3d - pack %2d/%2d - xp %3d/%3d",
 				player.hp(), player.maxHp(), player.food(), player.maxFood(),
 				player.inventory().getSize(),
 				player.inventory().getItems().length, player.xp(),

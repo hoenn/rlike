@@ -12,8 +12,6 @@ public class Creature extends Entity {
 	public int z;
 	
 	public Stats stats;
-
-	
 	public String causeOfDeath;
 	
 	private boolean throwBack = false;
